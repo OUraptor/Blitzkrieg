@@ -15,17 +15,18 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 
 
 public class main extends Application{
 	//private Stage primaryStage;
 	public static main instance;
-	
+	private Pane pane;
 	private Stage primaryStage;
 	private Scene HOME;
 	private Scene Play; 
-	private HomeScreen home;
+	private GameScreen gameScreen;
 	//private Pane screen;
 	
 	
@@ -40,28 +41,43 @@ public class main extends Application{
 	
 	public void start(Stage primaryStage) throws Exception {
 		try {
+			this.primaryStage = primaryStage;
 			instance = this;
-			
-			Parent root = FXMLLoader.load(getClass()
+			/*Parent root = FXMLLoader.load(getClass()
 					.getResource("screen.fxml"));
 			
-			this.home = new HomeScreen() ;
-			this.HOME =new Scene(root);
-			this.Play =new Scene(home);
-			primaryStage.setScene(HOME); // Place the scene
-			primaryStage.show();
+			this.pane = new Pane();
+			this.HOME =new Scene(pane);
+			this.Play =new Scene(gameScreen);
+			this.primaryStage.setScene(HOME); // Place the scene*/
+			
+			this.gameScreen = new GameScreen() ;
+			this.Play =new Scene(gameScreen);
+			Showscreen();
 		} catch(Exception e) {
             e.printStackTrace();
         }
 		
 	}
+	public void Showscreen() throws Exception {
+		/*Parent root = FXMLLoader.load(getClass()
+				.getResource("screen.fxml"));*/
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(main.class.getResource("screen.fxml"));
+		pane = loader.load();
+		HOME =new Scene(pane);
+		primaryStage.setScene(HOME);
+		primaryStage.show();
+	}
 	public void toggleScene(){
 		if(this.primaryStage.getScene()==this.HOME){
-			System.out.println(5555);
+			
 			this.primaryStage.setScene(this.Play);
 		}
 			
-		else if(this.primaryStage.getScene()==this.Play)this.primaryStage.setScene(this.HOME);
+		else if(this.primaryStage.getScene()==this.Play){
+			this.primaryStage.setScene(this.HOME);
+		}
 	}
 
 	

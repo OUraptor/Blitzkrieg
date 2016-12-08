@@ -36,7 +36,7 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <Text fx:id="Blitzkrieg" layoutX="293.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Blitzkrieg" wrappingWidth="215.0">
+      <Text fx:id="Blitzkrieg" layoutX="293.0" layoutY="68.0" onMouseEntered="#Ckapip" onMouseExited="#Ckapip2" strokeType="OUTSIDE" strokeWidth="2.0" text="Blitzkrieg" wrappingWidth="215.0">
          <font>
             <Font name="Bodoni MT Bold" size="50.0" />
          </font>
@@ -55,6 +55,5 @@
          </font>
       </Button>
       <Button fx:id="exit" blendMode="SCREEN" layoutX="685.0" layoutY="439.0" mnemonicParsing="false" onAction="#GotoExit" prefHeight="31.0" prefWidth="62.0" text="Exit" />
-      <ToggleButton layoutX="560.0" layoutY="439.0" mnemonicParsing="false" onAction="#GotoSkirmish" text="ToggleButton" />
    </children>
 </Pane>

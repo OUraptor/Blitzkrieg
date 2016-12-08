@@ -4,6 +4,8 @@ import gui.GameScreen;
 import gui.HomeScreen;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -23,6 +25,9 @@ public class Main extends Application{
 	}
 	
 	public void start(Stage primaryStage) throws Exception {
+		/*Parent root = FXMLLoader.load(getClass()
+                .getResource("screen.fxml"));//scence builder*/
+		
 		instance = this;
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Proj Prog");
