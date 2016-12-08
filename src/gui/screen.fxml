@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane fx:id="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller">
+   <children>
+      <ImageView fx:id="Wall" blendMode="SRC_ATOP" depthTest="ENABLE" fitHeight="500.0" fitWidth="800.0" focusTraversable="true" style="-fx-image: 555;">
+         <image>
+            <Image url="@../../res/thumb-1920-410344.jpg" />
+         </image>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow color="#a10d0d" />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ImageView>
+      <Button fx:id="Campaign" blendMode="SOFT_LIGHT" layoutX="42.0" layoutY="94.0" mnemonicParsing="false" onAction="#GotoCampaign" prefHeight="74.0" prefWidth="203.0" text="Campaign">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Button>
+      <Text fx:id="Blitzkrieg" layoutX="293.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Blitzkrieg" wrappingWidth="215.0">
+         <font>
+            <Font name="Bodoni MT Bold" size="50.0" />
+         </font>
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#545454" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Text>
+      <Button fx:id="Skirmish" blendMode="SOFT_LIGHT" layoutX="42.0" layoutY="213.0" mnemonicParsing="false" onAction="#GotoSkirmish" prefHeight="74.0" prefWidth="203.0" text="Skirmish">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Button>
+      <Button fx:id="exit" blendMode="SCREEN" layoutX="685.0" layoutY="439.0" mnemonicParsing="false" onAction="#GotoExit" prefHeight="31.0" prefWidth="62.0" text="Exit" />
+      <ToggleButton layoutX="560.0" layoutY="439.0" mnemonicParsing="false" onAction="#GotoSkirmish" text="ToggleButton" />
+   </children>
+</Pane>
