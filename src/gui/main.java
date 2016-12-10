@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import main.Main;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.ResourceBundle;
 import gui.GameScreen;
 import gui.HomeScreen;
 import javafx.application.Application;
-
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent;
@@ -43,6 +44,15 @@ public class main extends Application{
 		try {
 			this.primaryStage = primaryStage;
 			instance = this;
+			this.primaryStage.setTitle("Proj Prog");
+			this.primaryStage.setResizable(false);
+			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
+				@Override
+				public void handle(WindowEvent event) {
+					System.exit(0);
+				}
+			});
 			/*Parent root = FXMLLoader.load(getClass()
 					.getResource("screen.fxml"));
 			
