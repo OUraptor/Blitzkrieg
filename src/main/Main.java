@@ -31,7 +31,7 @@ public class Main extends Application{
 	private Scene Play; 
 	private GameScreen gameScreen;
 	//private Pane screen;
-	AudioClip sound = new AudioClip("file:res/main-theme.mp3");
+	AudioClip sound = new AudioClip("file:res/maintheme.mp3");
 	
 	
 	
@@ -88,7 +88,7 @@ public class Main extends Application{
 	public void toggleScene(){
 		if(this.primaryStage.getScene()==this.HOME){
 			sound.stop();
-			
+			sound.play();
 			this.primaryStage.setScene(this.Play);
 		}
 			
