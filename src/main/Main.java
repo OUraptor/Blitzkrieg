@@ -2,20 +2,10 @@ package main;
 
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import gui.main;
-import gui.controller;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-
 import gui.GameScreen;
-import gui.HomeScreen;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
@@ -31,7 +21,7 @@ public class Main extends Application{
 	private Scene Play; 
 	private GameScreen gameScreen;
 	//private Pane screen;
-	AudioClip sound = new AudioClip("file:res/maintheme.mp3");
+	AudioClip sound = new AudioClip("file:res/main-theme2.WAV");
 	
 	
 	
@@ -65,8 +55,8 @@ public class Main extends Application{
 			
 			this.gameScreen = new GameScreen() ;
 			this.Play =new Scene(gameScreen);
+			playinfinitesound(sound);
 			ShowScreen();
-			sound.play();
 			
 			
 		} catch(Exception e) {
@@ -75,8 +65,7 @@ public class Main extends Application{
 		
 	}
 	public void ShowScreen() throws Exception {
-		/*Parent root = FXMLLoader.load(getClass()
-				.getResource("screen.fxml"));*/
+		
 		FXMLLoader loaders = new FXMLLoader();
 		loaders.setLocation(Main.class.getResource("screen.fxml"));
 		panes = loaders.load();
@@ -88,7 +77,8 @@ public class Main extends Application{
 	public void toggleScene(){
 		if(this.primaryStage.getScene()==this.HOME){
 			sound.stop();
-			sound.play();
+			playinfinitesound(sound);
+			
 			this.primaryStage.setScene(this.Play);
 		}
 			
@@ -97,6 +87,10 @@ public class Main extends Application{
 			this.primaryStage.setScene(this.HOME);
 		}
 	}
-
+	public void playinfinitesound(AudioClip sound){
+		this.sound = sound;
+		sound.setCycleCount(AudioClip.INDEFINITE);
+		sound.play();
+	}
 	
 }
