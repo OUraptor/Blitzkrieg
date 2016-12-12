@@ -37,8 +37,8 @@ public class APC extends Unit {
 				}
 			gc.setStroke(Color.BLACK);
 		}
-		if(direction==1)gc.drawImage(RenderableHolder.APC[0],this.x,this.y);
-		if(direction==-1)gc.drawImage(RenderableHolder.APC[1], this.x, this.y);
+		if(direction==1)gc.drawImage(RenderableHolder.apc[0],this.x,this.y);
+		if(direction==-1)gc.drawImage(RenderableHolder.apc[1], this.x, this.y);
 		
 	}
 	

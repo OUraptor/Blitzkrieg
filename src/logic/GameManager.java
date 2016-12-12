@@ -25,15 +25,15 @@ public class GameManager {
 		
 		
 		//createTank(2, 5, 1);
-		createTank(1, 5, 1);
-		createSoldier(2, 6, 1);
-		createArtillery(2, 4, 1);
-		createAPC(2, 7, 1);
+		//createTank(1, 5, 1);
+		//createSoldier(2, 6, 1);
+		//createArtillery(2, 4, 1);
+		//createAPC(2, 7, 1);
 		
-		createTank(15, 5, 2);
-		createSoldier(15, 6, 2);
-		createArtillery(15, 4, 2);
-		createAPC(15, 7, 2);
+		//createTank(15, 5, 2);
+		//createSoldier(15, 6, 2);
+		//createArtillery(15, 4, 2);
+		//createAPC(15, 7, 2);
 		
 		
 		/*Attack atk = new Attack(0, 0);

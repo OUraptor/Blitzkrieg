@@ -9,8 +9,8 @@ public class RenderableHolder {
 	
 	public static Image[] tank ;
 	public static Image[] soldier ;
-	public static Image[] APC ;
-	public static Image[] Artillery ;
+	public static Image[] apc ;
+	public static Image[] artillery ;
 	
 	private List<IRenderable> entities ;
 	private List<IRenderable> overlays ;
@@ -22,8 +22,8 @@ public class RenderableHolder {
 		
 		tank = new Image[2] ;
 		soldier = new Image[2] ;
-		APC = new Image[2] ;
-		Artillery = new Image[2] ;
+		apc = new Image[2] ;
+		artillery = new Image[2] ;
 		entities = new ArrayList<IRenderable>() ;
 		overlays = new ArrayList<IRenderable>() ;
 	}
@@ -46,10 +46,10 @@ public class RenderableHolder {
 		tank[1] = new Image(loader.getResourceAsStream("tankl.png")) ;
 		soldier[0] = new Image(loader.getResourceAsStream("soldierr.png")) ;
 		soldier[1] = new Image(loader.getResourceAsStream("soldierl.png")) ;
-		APC[0] = new Image(loader.getResourceAsStream("apcr.png")) ;
-		APC[1] = new Image(loader.getResourceAsStream("apcl.png")) ;
-		Artillery[0] = new Image(loader.getResourceAsStream("artilleryr.png")) ;
-		Artillery[1] = new Image(loader.getResourceAsStream("artilleryl.png")) ;
+		apc[0] = new Image(loader.getResourceAsStream("apcr.png")) ;
+		apc[1] = new Image(loader.getResourceAsStream("apcl.png")) ;
+		artillery[0] = new Image(loader.getResourceAsStream("artilleryr.png")) ;
+		artillery[1] = new Image(loader.getResourceAsStream("artilleryl.png")) ;
 	}
 	
 	public List<IRenderable> getEntities() {

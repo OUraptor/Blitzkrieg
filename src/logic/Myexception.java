@@ -1,6 +1,5 @@
 package logic;
 
-
 public class Myexception extends Exception {
 	
 	public Myexception(int p1unit,int p2unit){

@@ -21,7 +21,7 @@ public class Main extends Application{
 	private Scene Play; 
 	private GameScreen gameScreen;
 	//private Pane screen;
-	AudioClip sound = new AudioClip("file:res/main-theme2.WAV");
+	AudioClip sound = new AudioClip("file:res/main-theme2.mp3");
 	
 	
 	
@@ -55,7 +55,7 @@ public class Main extends Application{
 			
 			this.gameScreen = new GameScreen() ;
 			this.Play =new Scene(gameScreen);
-			playinfinitesound(sound);
+			playsound(sound);
 			ShowScreen();
 			
 			
@@ -77,7 +77,7 @@ public class Main extends Application{
 	public void toggleScene(){
 		if(this.primaryStage.getScene()==this.HOME){
 			sound.stop();
-			playinfinitesound(sound);
+			playsound(sound);
 			
 			this.primaryStage.setScene(this.Play);
 		}
@@ -87,7 +87,7 @@ public class Main extends Application{
 			this.primaryStage.setScene(this.HOME);
 		}
 	}
-	public void playinfinitesound(AudioClip sound){
+	public void playsound(AudioClip sound){
 		this.sound = sound;
 		sound.setCycleCount(AudioClip.INDEFINITE);
 		sound.play();

@@ -1,15 +1,11 @@
 package gui;
 
-import java.io.IOException;
-import gui.controller;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -22,16 +18,12 @@ public class GameScreen extends BorderPane {
 	public static final int gscreenheight = 720;
 	public static final int ctrwidth = 250;
 	private GameZone gz = new GameZone();
-	
+
 	private Label turnButton = new Label("Start Game");
 
-	public GameScreen() throws Exception {
+	public GameScreen() {
 		this.setPrefSize(gscreenwidth, gscreenheight);
-		Pane pane = new Pane();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(main.class.getResource("right screen.fxml"));
-		pane = loader.load();
-		
+
 		BorderPane ctrcenter = new BorderPane();
 		FlowPane info = new FlowPane();
 		FlowPane act = new FlowPane();
@@ -49,7 +41,7 @@ public class GameScreen extends BorderPane {
 		act.setPrefHeight(100);
 		act.setStyle("-fx-background-color: darkgreen");
 
-		//Label turnButton = new Label("Start Game");
+		// Label turnButton = new Label("Start Game");
 		turnButton.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 40));
 		turnButton.setTextFill(Color.WHITE);
 
@@ -71,32 +63,74 @@ public class GameScreen extends BorderPane {
 			public void handle(MouseEvent event) {
 
 				if (turnButton.getText().toString() == "Start Game") {
-					turnButton.setText("P1 Turn End");
-					
-					for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
-						if (ir instanceof Unit) {
-							if (((Unit) ir).getPlayer() == 1)
-								((Unit) ir).setmovable(true);
-						}
-					}
+					turnButton.setText("End placing");
+
+					/*
+					 * for (IRenderable ir :
+					 * RenderableHolder.getInstance().getEntities()) { if (ir
+					 * instanceof Unit) { if (((Unit) ir).getPlayer() == 1)
+					 * ((Unit) ir).setmovable(true); } }
+					 */
+					gz.setState(9);
 					gz.paintComponents();
 				} else {
-					
-						buttonToggle();
 
+					if (turnButton.getText().toString() == "End placing") {
+						if(gz.getGm().getturn()==1){
+							gz.getGm().setturn(2);
+							gz.setS(3);
+							gz.setA(1);
+							gz.setT(2);
+							gz.setAp(2);
+							gz.setSp("");
+						}
+						else {
+							if(gz.getGm().getturn()==2){
+								turnButton.setText("P1 Turn End");
+								
+								
+								gz.getGm().setturn(1);
+								gz.setState(0);
+								for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
+									if (ir instanceof Unit) {
+										if (((Unit) ir).getPlayer() == 1)
+											((Unit) ir).setmovable(true);
+									}
+								}
+								gz.paintComponents();
+							}
+						}
+					} else {
+						/*if (turnButton.getText().toString() == "P2 placing Unit") {
+							turnButton.setText("End placing");
+							gz.getGm().setturn(1);
+							
+						} else{*/
+							/*if(turnButton.getText().toString() == "End placing"){
+								turnButton.setText("P1 Turn End");
+								gz.setState(0);
+								for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
+									if (ir instanceof Unit) {
+										if (((Unit) ir).getPlayer() == 1)
+											((Unit) ir).setmovable(true);
+									}
+								}
+								gz.paintComponents();
+							}
+							else*/ buttonToggle();
+							}
 				}
 			}
 		});
-		
+
 		this.setCenter(gz);
 		this.setRight(ctrcenter);
 		ctrcenter.setCenter(info);
 		ctrcenter.setBottom(act);
-		ctrcenter.setTop(pane);
-		
+
 	}
-	
-	public void buttonToggle(){
+
+	public void buttonToggle() {
 		if (gz.getGm().getturn() == 1) {
 			gz.getGm().setturn(2);
 			for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
