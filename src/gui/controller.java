@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import gui.GameScreen;
 import gui.HomeScreen;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -24,9 +26,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import main.Main;
 
 
 public class controller implements Initializable{
+	private int currentTime;
+	private AnimationTimer animationTimer;
+	private long lastTimeTriggered;
 	@FXML
 	private Pane screen;
 	@FXML
@@ -61,10 +67,11 @@ public class controller implements Initializable{
 	}
 	public void GotoSkirmish(ActionEvent event) {
 		System.out.println("goto Skirmish ");
-		main.instance.toggleScene();
+		//main.instance.toggleScene(); // if use main in gui
+		Main.instance.toggleScene();
 	}
 	public void GotoExit(ActionEvent event) {
-		
+		System.exit(0);
 		System.out.println("goto Exit ");
 		
 	}
@@ -89,8 +96,13 @@ public class controller implements Initializable{
 		});
 	}
 		
-			
+	// right pane part 		
+	//Pane pane = new Pane();
+	/*FXMLLoader loader = new FXMLLoader();
+	loader.setLocation(main.class.getResource("right screen.fxml"));
+	pane = loader.load();*/
+	//ctrcenter.setTop(pane);
 	
-	
+	//this.animationTimer.start();
 
 }

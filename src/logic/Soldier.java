@@ -41,11 +41,23 @@ public class Soldier extends Unit {
 		if(direction==-1)gc.drawImage(RenderableHolder.soldier[1], this.x, this.y);
 		
 	}
+	
+	public void hit(Unit u){
+		if(u instanceof APC)this.health=this.health-((APC)u).getFirepower()*3 ;
+		else if(u instanceof Tank)this.health=this.health-((Tank)u).getFirepower() ;
+		else if(u instanceof Soldier)this.health=this.health-((Soldier)u).getFirepower() ;
+		else if(u instanceof Artillery)this.health=this.health-((Artillery)u).getFirepower() ;
+		if(this.health<=0)this.setDestroy() ;
+		}
 
 	@Override
 	public boolean isDestroy() {
 		// TODO Auto-generated method stub
 		return isDestroy;
+	}
+	
+	public void setDestroy() {
+		this.isDestroy=true;
 	}
 	
 	public int getDirection() {

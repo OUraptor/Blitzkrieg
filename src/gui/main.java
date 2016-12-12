@@ -45,7 +45,7 @@ public class main extends Application{
 			this.primaryStage = primaryStage;
 			instance = this;
 			this.primaryStage.setTitle("Proj Prog");
-			this.primaryStage.setResizable(false);
+			//this.primaryStage.setResizable(false);
 			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				
 				@Override

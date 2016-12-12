@@ -10,8 +10,6 @@ public class Tank extends Unit {
 	private int firerange ;
 	private int walkrange ;
 	private int health ;
-	//private int player ;
-	//private static boolean movable = false ;
 	
 	public Tank(int x, int y, int direction,int player){
 		super(x, y,direction,player);
@@ -41,11 +39,23 @@ public class Tank extends Unit {
 		if(direction==-1)gc.drawImage(RenderableHolder.tank[1], this.x, this.y);
 		
 	}
+	
+	public void hit(Unit u){
+		if(u instanceof Artillery)this.health=this.health-((Artillery)u).getFirepower()*3 ;
+		else if(u instanceof Tank)this.health=this.health-((Tank)u).getFirepower() ;
+		else if(u instanceof Soldier)this.health=this.health-((Soldier)u).getFirepower() ;
+		else if(u instanceof APC)this.health=this.health-((APC)u).getFirepower() ;
+		if(this.health<=0)this.setDestroy() ;
+		}
 
 	@Override
 	public boolean isDestroy() {
 		// TODO Auto-generated method stub
 		return isDestroy;
+	}
+	
+	public void setDestroy() {
+		this.isDestroy=true;
 	}
 	
 	public int getDirection() {

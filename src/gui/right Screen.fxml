@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller">
+   <children>
+      <BorderPane fx:id="timescreen" prefHeight="168.0" prefWidth="257.0" style="-fx-background-color: black;">
+         <center>
+            <Text fx:id="time" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="60" textAlignment="CENTER" wrappingWidth="157.6708984375" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Bell MT" size="60.0" />
+               </font>
+            </Text>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

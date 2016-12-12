@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane fx:id="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller">
+<Pane fx:id="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.5" prefWidth="812.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller">
    <children>
-      <ImageView fx:id="Wall" blendMode="SRC_ATOP" depthTest="ENABLE" fitHeight="500.0" fitWidth="800.0" focusTraversable="true" style="-fx-image: 555;">
+      <ImageView fx:id="Wall" blendMode="SRC_ATOP" depthTest="ENABLE" fitHeight="512.5" fitWidth="812.5" focusTraversable="true" style="-fx-image: 555;">
          <image>
             <Image url="@../../res/thumb-1920-410344.jpg" />
          </image>
@@ -54,6 +54,6 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <Button fx:id="exit" blendMode="SCREEN" layoutX="685.0" layoutY="439.0" mnemonicParsing="false" onAction="#GotoExit" prefHeight="31.0" prefWidth="62.0" text="Exit" />
+      <Button fx:id="exit" blendMode="LIGHTEN" layoutX="698.0" layoutY="447.0" mnemonicParsing="false" onAction="#GotoExit" prefHeight="31.0" prefWidth="62.0" text="Exit" />
    </children>
 </Pane>

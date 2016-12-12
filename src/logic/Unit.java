@@ -16,6 +16,8 @@ public abstract class Unit extends Entity{
 		this.direction=direction;
 	}
 	
+	public abstract void hit(Unit u);
+	
 	
 	public int getPlayer() {
 		return player;
