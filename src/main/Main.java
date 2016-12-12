@@ -7,7 +7,7 @@ import gui.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import java.util.Timer;
 
 import gui.GameScreen;
 import gui.HomeScreen;
@@ -88,6 +88,7 @@ public class Main extends Application{
 	public void toggleScene(){
 		if(this.primaryStage.getScene()==this.HOME){
 			sound.stop();
+			
 			this.primaryStage.setScene(this.Play);
 		}
 			

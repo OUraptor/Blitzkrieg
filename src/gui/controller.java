@@ -1,5 +1,5 @@
 package gui;
-import javafx.stage.Stage;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,32 +7,25 @@ import java.util.ResourceBundle;
 import gui.GameScreen;
 import gui.HomeScreen;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import main.Main;
 
 
 public class controller implements Initializable{
-	private int currentTime;
-	private AnimationTimer animationTimer;
-	private long lastTimeTriggered;
+	
 	@FXML
 	private Pane screen;
 	@FXML
@@ -50,6 +43,7 @@ public class controller implements Initializable{
 	//right screen
 	@FXML
 	private Text time;
+	
 	
 	
 	public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +66,7 @@ public class controller implements Initializable{
 		System.out.println("goto Skirmish ");
 		//main.instance.toggleScene(); // if use main in gui
 		Main.instance.toggleScene();
+		
 	}
 	public void GotoExit(ActionEvent event) {
 		System.exit(0);
@@ -107,5 +102,33 @@ public class controller implements Initializable{
 	//ctrcenter.setTop(pane);
 	
 	//this.animationTimer.start();
+	
+	Thread timer = new Thread(() -> {
+		try{
+			while(true){
+				Thread.sleep(1000);
+				timerdown();
+			}
+		}catch(InterruptedException e){
+			
+		}
+	});
 
+
+	public void timerdown() {
+		// TODO Auto-generated method stub
+		int result = Integer.parseInt(time.toString());
+		result--;
+		String str = result+"";
+		time.setText(str);
+	}
+	/*public void paintComponents() {
+		// Fill in here
+		String image_path = "file:res/field.jpg";
+		Image javafx_logo = new Image(image_path);
+		//gc.drawImage(javafx_logo, 60, 60);
+		gc.setFill(Color.LIGHTGRAY);
+		gc.fillRect(0, 0, zonewidth, zoneheight);
+		gc.drawImage(javafx_logo,0,0,1080,720);
+	*/
 }

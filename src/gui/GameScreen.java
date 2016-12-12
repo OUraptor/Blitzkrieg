@@ -1,7 +1,7 @@
 package gui;
 
 import java.io.IOException;
-
+import gui.controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -93,6 +93,7 @@ public class GameScreen extends BorderPane {
 		ctrcenter.setCenter(info);
 		ctrcenter.setBottom(act);
 		ctrcenter.setTop(pane);
+		
 	}
 	
 	public void buttonToggle(){
