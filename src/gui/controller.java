@@ -47,6 +47,9 @@ public class controller implements Initializable{
 	private Button exit;
 	
 	
+	//right screen
+	@FXML
+	private Text time;
 	
 	
 	public void initialize(URL location, ResourceBundle resources) {

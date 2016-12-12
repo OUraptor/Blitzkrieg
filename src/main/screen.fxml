@@ -54,6 +54,6 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <Button fx:id="exit" blendMode="LIGHTEN" layoutX="698.0" layoutY="447.0" mnemonicParsing="false" onAction="#GotoExit" prefHeight="31.0" prefWidth="62.0" text="Exit" />
+      <Button fx:id="exit" blendMode="SOFT_LIGHT" layoutX="698.0" layoutY="447.0" mnemonicParsing="false" onAction="#GotoExit" prefHeight="29.0" prefWidth="66.0" text="Exit" />
    </children>
 </Pane>

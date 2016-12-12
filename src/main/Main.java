@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 
 
 
@@ -30,11 +31,11 @@ public class Main extends Application{
 	private Scene Play; 
 	private GameScreen gameScreen;
 	//private Pane screen;
+	AudioClip sound = new AudioClip("file:res/main-theme.mp3");
 	
 	
 	
 	
-
 	public static void main(String[] args) {
 		launch(args);
 		// TODO Auto-generated method stub
@@ -65,6 +66,9 @@ public class Main extends Application{
 			this.gameScreen = new GameScreen() ;
 			this.Play =new Scene(gameScreen);
 			ShowScreen();
+			sound.play();
+			
+			
 		} catch(Exception e) {
             e.printStackTrace();
         }
@@ -79,14 +83,16 @@ public class Main extends Application{
 		HOME =new Scene(panes);
 		primaryStage.setScene(HOME);
 		primaryStage.show();
+		
 	}
 	public void toggleScene(){
 		if(this.primaryStage.getScene()==this.HOME){
-			
+			sound.stop();
 			this.primaryStage.setScene(this.Play);
 		}
 			
 		else if(this.primaryStage.getScene()==this.Play){
+			sound.play();
 			this.primaryStage.setScene(this.HOME);
 		}
 	}
