@@ -1,7 +1,7 @@
 package main;
 
 import javafx.stage.Stage;
-import gui.controller;
+
 import javafx.stage.WindowEvent;
 import gui.GameScreen;
 import gui.HomeScreen;

@@ -14,7 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import logic.Unit;
-import logic.GameManager;
+
 
 public class GameScreen extends BorderPane {
 

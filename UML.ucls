@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="false" dependencies="false" nesting-relationships="true" 
+  router="FAN">  
+  <class id="1" language="java" name="gui.controller" project="Project_Prog" 
+    file="/Project_Prog/src/gui/controller.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="202" y="-194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="gui.RenderableHolder" project="Project_Prog" 
+    file="/Project_Prog/src/gui/RenderableHolder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="450" y="-194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="gui.GameZone" project="Project_Prog" file="/Project_Prog/src/gui/GameZone.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1522" y="427"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="gui.Entity" project="Project_Prog" file="/Project_Prog/src/gui/Entity.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="641" y="-91"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="gui.Overlay" project="Project_Prog" file="/Project_Prog/src/gui/Overlay.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1025" y="-228"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="gui.HomeScreen" project="Project_Prog" 
+    file="/Project_Prog/src/gui/HomeScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="133" x="1355" y="-358"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="gui.Attack" project="Project_Prog" file="/Project_Prog/src/gui/Attack.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1022" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="gui.GameScreen" project="Project_Prog" 
+    file="/Project_Prog/src/gui/GameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="136" x="1528" y="-358"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="gui.Walk" project="Project_Prog" file="/Project_Prog/src/gui/Walk.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1223" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="10" language="java" name="gui.IRenderable" project="Project_Prog" 
+    file="/Project_Prog/src/gui/IRenderable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="836" y="-298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="11" language="java" name="logic.GameManager" project="Project_Prog" 
+    file="/Project_Prog/src/logic/GameManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="197" y="618"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="logic.Tank" project="Project_Prog" file="/Project_Prog/src/logic/Tank.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="431" y="956"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="logic.Artillery" project="Project_Prog" 
+    file="/Project_Prog/src/logic/Artillery.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="626" y="956"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="logic.Unit" project="Project_Prog" file="/Project_Prog/src/logic/Unit.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="411" width="193" x="548" y="270"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="logic.Myexception" project="Project_Prog" 
+    file="/Project_Prog/src/logic/Myexception.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="88" width="140" x="368" y="270"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="logic.APC" project="Project_Prog" file="/Project_Prog/src/logic/APC.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="859" y="953"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="logic.Soldier" project="Project_Prog" file="/Project_Prog/src/logic/Soldier.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1138" y="855"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="main.Main" project="Project_Prog" file="/Project_Prog/src/main/Main.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="876" y="419"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="21">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <realization id="22">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <realization id="26">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
