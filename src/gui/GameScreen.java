@@ -1,11 +1,14 @@
 package gui;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -20,6 +23,7 @@ public class GameScreen extends BorderPane {
 	private GameZone gz = new GameZone();
 
 	private Label turnButton = new Label("Start Game");
+	private Button shopbutton = new Button("Shop") ;
 
 	public GameScreen() {
 		this.setPrefSize(gscreenwidth, gscreenheight);
@@ -27,6 +31,7 @@ public class GameScreen extends BorderPane {
 		BorderPane ctrcenter = new BorderPane();
 		FlowPane info = new FlowPane();
 		FlowPane act = new FlowPane();
+		GridPane gp = new GridPane();
 
 		ctrcenter.setPrefWidth(250);
 		ctrcenter.setStyle("-fx-background-color: black");
@@ -35,8 +40,16 @@ public class GameScreen extends BorderPane {
 
 		gz.getDesc().setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
 		gz.getDesc().setTextFill(Color.LIGHTBLUE);
-
-		info.getChildren().add(gz.getDesc());
+		
+		//info.getChildren().add(shopbutton);
+		//info.setAlignment(Pos.CENTER);
+		//info.setPadding(new Insets(30, 10, 10, 15));
+		//info.getChildren().add(gz.getDesc());
+		
+		gp.add(shopbutton, 0, 0);
+		gp.add(gz.getDesc(), 0, 1);
+		gp.setAlignment(Pos.CENTER);
+		gp.setVgap(50);
 
 		act.setPrefHeight(100);
 		act.setStyle("-fx-background-color: darkgreen");
@@ -44,6 +57,32 @@ public class GameScreen extends BorderPane {
 		// Label turnButton = new Label("Start Game");
 		turnButton.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 40));
 		turnButton.setTextFill(Color.WHITE);
+		
+		shopbutton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				if(gz.getState()==0){
+					if(gz.getGm().getturn()==1){
+						gz.setS(gz.getGm().getP1Money()/50);
+						gz.setA(gz.getGm().getP1Money()/50);
+						gz.setT(gz.getGm().getP1Money()/50);
+						gz.setAp(gz.getGm().getP1Money()/50);
+					}
+					if(gz.getGm().getturn()==2){
+						gz.setS(gz.getGm().getP2Money()/50);
+						gz.setA(gz.getGm().getP2Money()/50);
+						gz.setT(gz.getGm().getP2Money()/50);
+						gz.setAp(gz.getGm().getP2Money()/50);	
+					}
+					gz.setState(7);
+				}
+				else {
+					if(gz.getState()==7||gz.getState()==6){
+						gz.setState(0);
+						gz.paintComponents();
+					}
+				}
+			}
+		});
 
 		act.getChildren().add(turnButton);
 		act.setAlignment(Pos.CENTER);
@@ -105,6 +144,7 @@ public class GameScreen extends BorderPane {
 							if(turnButton.getText().equals("P1 Turn End")){
 							
 							try {
+								gz.getGm().setP1Money(gz.getGm().getP1Money()+gz.getTimeint()*10);
 								gz.stop();
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
@@ -113,10 +153,12 @@ public class GameScreen extends BorderPane {
 							}
 							
 							turnButton.setText("P2 Go!");
+							gz.setState(-1);
 						}
 						else{
 							if(turnButton.getText().equals("P2 Turn End")){
 								try {
+									gz.getGm().setP2Money(gz.getGm().getP2Money()+gz.getTimeint()*10);
 									gz.stop();
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
@@ -124,6 +166,7 @@ public class GameScreen extends BorderPane {
 									System.out.println("Stop Timer Thread");
 								}
 								turnButton.setText("P1 Go!");
+								gz.setState(-1);
 							}
 							else{
 								buttonToggle();
@@ -142,7 +185,7 @@ public class GameScreen extends BorderPane {
 		Ctr.getChildren().add(gz.getTime());
 		this.setCenter(gz);
 		this.setRight(ctrcenter);
-		ctrcenter.setCenter(info);
+		ctrcenter.setCenter(gp);
 		ctrcenter.setBottom(act);
 		ctrcenter.setTop(Ctr);
 

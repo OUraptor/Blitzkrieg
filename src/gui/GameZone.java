@@ -30,26 +30,35 @@ public class GameZone extends Canvas {
 	private static final int zoneheight = GameScreen.gscreenheight;
 
 	private GraphicsContext gc = this.getGraphicsContext2D();
-	
+
 	private Label desc = new Label();
-	
+
 	private String timestr = "15";
 	private Label time = new Label(timestr);
-	private Thread timer ;
+	private Thread timer;
 	private int timeint = 15;
-	
-	private int xtemp=-1 ;
-	private int ytemp=-1 ;
-	
+
+	private int xtemp = -1;
+	private int ytemp = -1;
+
 	private int state = 10;
 	private String sp = "";
-	
+
 	private int s = 3;
 	private int a = 1;
 	private int t = 2;
 	private int ap = 2;
 
+	private String image_path3 = "file:res/build.jpg";
+	protected Image build = new Image(image_path3);
+
+	private String image_path2 = "file:res/loading.jpg";
+	protected Image loading = new Image(image_path2);
+
 	private Unit unit;
+
+	private String image_path = "file:res/field.jpg";
+	protected Image javafx_logo = new Image(image_path);
 
 	private GameManager gm;
 
@@ -104,7 +113,9 @@ public class GameZone extends Canvas {
 									alert.showAndWait();
 								}
 							});
-						} else if (gm.getP2unit() == 0) {
+						}else if(gm.getP2unit()==0)
+
+	{
 							// System.out.println("rip p1");
 
 							Platform.runLater(new Runnable() {
@@ -116,28 +127,29 @@ public class GameZone extends Canvas {
 									alert.showAndWait();
 								}
 							});
-						}}
-						for(int i=RenderableHolder.getInstance().getEntities().size()-1;i>=0;i--){
-							IRenderable ir=RenderableHolder.getInstance().getEntities().get(i);
-							if(ir instanceof Unit)((Unit) ir).setDestroy(true);
-							}
-						getGm().removeDestroyEntity();
+						}}for(
+	int i = RenderableHolder.getInstance().getEntities().size() - 1;i>=0;i--)
+	{
+		IRenderable ir = RenderableHolder.getInstance().getEntities().get(i);
+		if (ir instanceof Unit)
+			((Unit) ir).setDestroy(true);
+	}
+
+	getGm().removeDestroyEntity();
 						Main.instance.toggleScene();
 					}
-					// gm.checkwin();
+	// gm.checkwin();
 
-					start = now;
-				}
-			}
-		}.start();
+	start=now;
+
+	}}}.start();
 
 	}
 
 	public void paintComponents() {
 		// Fill in here
-		String image_path = "file:res/field.jpg";
-		Image javafx_logo = new Image(image_path);
-		gc.setFill(Color.LIGHTGRAY);
+		
+		
 		gc.drawImage(javafx_logo,0,0,1080,720);
 		//gc.setFill(Color.LIGHTGRAY);
 		//gc.fillRect(0, 0, zonewidth, zoneheight);
@@ -168,52 +180,68 @@ public class GameZone extends Canvas {
 		
 		 //System.out.println("state : " + state);// System.out.println("sp : " +
 		 //sp); System.out.println("turn : " + getGm().getturn());
-		 
+		//System.out.println("s "+s+" s "+t+" a "+a+" ap "+ap);
+		System.out.println("p1money : "+gm.getP1Money()/2);
+		System.out.println("p2money : "+gm.getP2Money()/2);
 		if (state == 10) {
-			gc.setFill(Color.PURPLE);
-			String image_path = "file:res/loading.jpg";
-			Image javafx_logo = new Image(image_path);
-			gc.setFill(Color.LIGHTGRAY);
-			gc.drawImage(javafx_logo,0,0,1080,720);
-			//gc.fillRect(0, 0, zonewidth, zoneheight);
+			
+			gc.drawImage(loading,0,0,1080,720);
 		} else {
 			if (state == 9) {
 				paintComponents();
 				prePlacingUnit();
 				selectPlacing(s, t, a, ap);
 			} else {
-				// System.out.println(state);
 				if (state == 8) {
 					paintComponents();
 					prePlacingUnit();
 					place();
+					
 				} else {
-					this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						public void handle(MouseEvent event) {
-							for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
-								if (ir instanceof Unit) {
-									Unit u = (Unit) ir;
-									if (state == 0 && u.getmovable() == true)
-										movegrid(gm, u, event);
-								}
-							}
+					if (state == 7) {
+						
+						paintComponents();
+						prePlacingUnit();
+						selectPlacing(s, t, a, ap);
+					}
+					else {
+						if (state == 6) {
+						paintComponents();
+						prePlacingUnit();
+						place();
 						}
-					});
+						else{
+							this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+								public void handle(MouseEvent event) {
+									for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
+										if (ir instanceof Unit) {
+											Unit u = (Unit) ir;
+											if (state == 0 && u.getmovable() == true)
+												movegrid(gm, u, event);
+										}
+									}
+								}
+							});
 
-					if (state == 1) {
-						moveselect(gm, unit);
-					} else if (state == 2)
-						atkgrid(gm, unit);
-					else if (state == 3 && gm.atkcount != 0) {
-						atkselect(gm, unit);
-					} else
-						state = 0;
-
-					//gm.update();
+							if (state == 1) {
+								moveselect(gm, unit);
+							} else if (state == 2)
+								atkgrid(gm, unit);
+							else if (state == 3 && gm.atkcount != 0) {
+								atkselect(gm, unit);
+							} else
+								if(state!=-1)state = 0;
+						}
+						
+					}
 				}
 			}
 		}
+		
+		//System.out.println("fewfewfwefewfwefewfwewfewfwefwefwefewfewfwe");
 	}
+
+	
 
 	public void movegrid(GameManager gm, Unit u, MouseEvent event) {
 
@@ -277,49 +305,60 @@ public class GameZone extends Canvas {
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
 
 					if (gm.getOPos()[(int) (event.getSceneX()) / 60][(int) (event.getSceneY()) / 60] == 1) {
-						
-						if(u.getX()/60==((int) (event.getSceneX()) / 60)&&u.getY()/60==((int) (event.getSceneY()) / 60)){
-							if(u instanceof Soldier){
-								if(((Soldier) u).getHealth()<14)((Soldier) u).setHealth(((Soldier) u).getHealth()+1);
+
+						if (u.getX() / 60 == ((int) (event.getSceneX()) / 60)
+								&& u.getY() / 60 == ((int) (event.getSceneY()) / 60)) {
+							if (u instanceof Soldier) {
+								if (((Soldier) u).getHealth() < 14)
+									((Soldier) u).setHealth(((Soldier) u).getHealth() + 1);
 							}
-							if(u instanceof Tank){
-								if(((Tank) u).getHealth()<16)((Tank) u).setHealth(((Tank) u).getHealth()+1);
+							if (u instanceof Tank) {
+								if (((Tank) u).getHealth() < 16)
+									((Tank) u).setHealth(((Tank) u).getHealth() + 1);
 							}
-							if(u instanceof Artillery){
-								if(((Artillery) u).getHealth()<10)((Artillery) u).setHealth(((Artillery) u).getHealth()+1);
+							if (u instanceof Artillery) {
+								if (((Artillery) u).getHealth() < 10)
+									((Artillery) u).setHealth(((Artillery) u).getHealth() + 1);
 							}
-							if(u instanceof APC){
-								if(((APC) u).getHealth()<13)((APC) u).setHealth(((APC) u).getHealth()+1);
+							if (u instanceof APC) {
+								if (((APC) u).getHealth() < 13)
+									((APC) u).setHealth(((APC) u).getHealth() + 1);
 							}
 						}
-						
+
 						gm.getUPos()[u.getX() / 60][u.getY() / 60] = 0;
-						
-						/*u.setX(((int) (event.getSceneX()) / 60) * 60);
-						u.setY(((int) (event.getSceneY()) / 60) * 60);*/
-						//gm.getUPos()[u.getX() / 60][u.getY() / 60] = u.getPlayer();
+
+						/*
+						 * u.setX(((int) (event.getSceneX()) / 60) * 60);
+						 * u.setY(((int) (event.getSceneY()) / 60) * 60);
+						 */
+						// gm.getUPos()[u.getX() / 60][u.getY() / 60] =
+						// u.getPlayer();
 						gm.getUPos()[(int) (event.getSceneX()) / 60][(int) (event.getSceneY()) / 60] = u.getPlayer();
-						xtemp=((int) (event.getSceneX()) / 60) * 60 ;
-						ytemp=((int) (event.getSceneY()) / 60) * 60 ;
-						//gm.update(u, ((int) (event.getSceneX()) / 60) * 60, ((int) (event.getSceneY()) / 60) * 60);
+						xtemp = ((int) (event.getSceneX()) / 60) * 60;
+						ytemp = ((int) (event.getSceneY()) / 60) * 60;
+						// gm.update(u, ((int) (event.getSceneX()) / 60) * 60,
+						// ((int) (event.getSceneY()) / 60) * 60);
 						gm.resetOverlay();
 						u.setmovable(false);
-						//gm.getUPos()[((int) (event.getSceneX()) / 60)][((int) (event.getSceneY()) / 60) / 60] = u.getPlayer();
+						// gm.getUPos()[((int) (event.getSceneX()) / 60)][((int)
+						// (event.getSceneY()) / 60) / 60] = u.getPlayer();
 						Thread t = new Thread(() -> {
-							while(u.getX()!=((int) (event.getSceneX()) / 60) * 60||u.getY()!=((int) (event.getSceneY()) / 60) * 60){
+							while (u.getX() != ((int) (event.getSceneX()) / 60) * 60
+									|| u.getY() != ((int) (event.getSceneY()) / 60) * 60) {
 								try {
-									Thread.sleep(50);
-									if(u.getX()>((int) (event.getSceneX()) / 60) * 60){
-										u.setX(u.getX()-10);
+									Thread.sleep(25);
+									if (u.getX() > ((int) (event.getSceneX()) / 60) * 60) {
+										u.setX(u.getX() - 10);
 									}
-									if(u.getX()<((int) (event.getSceneX()) / 60) * 60){
-										u.setX(u.getX()+10);
+									if (u.getX() < ((int) (event.getSceneX()) / 60) * 60) {
+										u.setX(u.getX() + 10);
 									}
-									if(u.getY()>((int) (event.getSceneY()) / 60) * 60){
-										u.setY(u.getY()-10);
+									if (u.getY() > ((int) (event.getSceneY()) / 60) * 60) {
+										u.setY(u.getY() - 10);
 									}
-									if(u.getY()<((int) (event.getSceneY()) / 60) * 60){
-										u.setY(u.getY()+10);
+									if (u.getY() < ((int) (event.getSceneY()) / 60) * 60) {
+										u.setY(u.getY() + 10);
 									}
 									paintComponents();
 								} catch (InterruptedException e) {
@@ -328,30 +367,33 @@ public class GameZone extends Canvas {
 									System.out.println("Stop Timer Thread");
 									break;
 								}
-							}System.out.println("55");
+							}
+							//System.out.println("55");
 						});
 						t.start();
-						//System.out.println(((int) (event.getSceneX()) / 60) * 60+" "+((int) (event.getSceneY()) / 60) * 60);
-						/*if(u.getX()==((int) (event.getSceneX()) / 60) * 60&&u.getY()==((int) (event.getSceneY()) / 60) * 60){
-						//gm.resetOverlay();
-						u.setmovable(false);
-						state = 2;
-						}*/
+						// System.out.println(((int) (event.getSceneX()) / 60) *
+						// 60+" "+((int) (event.getSceneY()) / 60) * 60);
+						/*
+						 * if(u.getX()==((int) (event.getSceneX()) / 60) *
+						 * 60&&u.getY()==((int) (event.getSceneY()) / 60) * 60){
+						 * //gm.resetOverlay(); u.setmovable(false); state = 2;
+						 * }
+						 */
 
 					}
 					paintComponents();
 				} else
 					cancelAction();
-				
+
 			}
 		});
-		System.out.println(u.getX()+" "+u.getY());
-		System.out.println(xtemp+" "+ytemp);
-		if(u.getX()==xtemp&&u.getY()==ytemp){
-			//gm.resetOverlay();
-			//u.setmovable(false);
+		System.out.println(u.getX() + " " + u.getY());
+		System.out.println(xtemp + " " + ytemp);
+		if (u.getX() == xtemp && u.getY() == ytemp) {
+			// gm.resetOverlay();
+			// u.setmovable(false);
 			state = 2;
-			}
+		}
 	}
 
 	public void atkgrid(GameManager gm, Unit u) {
@@ -513,24 +555,22 @@ public class GameZone extends Canvas {
 			}
 		}
 	}
-	
+
 	private void prePlacingUnit() {
 		paintComponents();
 		if (gm.getturn() == 1) {
-			String image_path = "file:res/build.jpg";
-			Image javafx_logo = new Image(image_path);
-			//gc.setFill(Color.LIGHTGRAY);
-			//gc.fillRect(300, 0, zonewidth-300, zoneheight);
-			gc.drawImage(javafx_logo,300,0,zonewidth - 300, zoneheight);
-			
+
+			// gc.setFill(Color.LIGHTGRAY);
+			// gc.fillRect(300, 0, zonewidth-300, zoneheight);
+			gc.drawImage(build, 300, 0, zonewidth - 300, zoneheight);
+
 			iconPlacing();
 		} else if (gm.getturn() == 2) {
-			String image_path = "file:res/build.jpg";
-			Image javafx_logo = new Image(image_path);
-			//gc.setFill(Color.LIGHTGRAY);
-			//gc.fillRect(0, 0, zonewidth-300, zoneheight);
-			gc.drawImage(javafx_logo,0,0,zonewidth - 300, zoneheight);
-			
+
+			// gc.setFill(Color.LIGHTGRAY);
+			// gc.fillRect(0, 0, zonewidth-300, zoneheight);
+			gc.drawImage(build, 0, 0, zonewidth - 300, zoneheight);
+
 		}
 		iconPlacing();
 	}
@@ -539,158 +579,158 @@ public class GameZone extends Canvas {
 
 		Font theFont = Font.font("Arial", FontWeight.LIGHT, 20);
 		gc.setFont(theFont);
-		//if (s + a + t + ap != 0) {
-			if (getGm().getturn() == 1) {
-				//if (s != 0) {
-					gc.setFill(Color.DARKGRAY);
-					gc.fillRoundRect(540, 180, 60, 60, 20, 20);
-					if (sp.equals("s")) {
-						gc.setStroke(Color.DARKBLUE);
-						gc.strokeRoundRect(540, 180, 60, 60, 20, 20);
-					}
-					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-					gc.fillText("left : " + s, 620, 180);
-					gc.drawImage(RenderableHolder.soldier[0], 540, 180);
-					
-					if(s==0){
-						gc.setGlobalAlpha(0.7);
-						gc.setFill(Color.DIMGRAY);
-						gc.fillRoundRect(540, 180, 60, 60, 20, 20);
-						gc.setGlobalAlpha(1);
-					}
-				//}
-				//if (t != 0) {
-					gc.setFill(Color.DARKGRAY);
-					gc.fillRoundRect(540, 300, 60, 60, 20, 20);
-					if (sp.equals("t")) {
-						gc.setStroke(Color.DARKBLUE);
-						gc.strokeRoundRect(540, 300, 60, 60, 20, 20);
-					}
-					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-					gc.fillText("left : " + t, 620, 300);
-					gc.drawImage(RenderableHolder.tank[0], 540, 300);
-					
-					if(t==0){
-						gc.setGlobalAlpha(0.7);
-						gc.setFill(Color.DIMGRAY);
-						gc.fillRoundRect(540, 300, 60, 60, 20, 20);
-						gc.setGlobalAlpha(1);
-					}
-				//}
-				//if (a != 0) {
-					gc.setFill(Color.DARKGRAY);
-					gc.fillRoundRect(540, 420, 60, 60, 20, 20);
-					if (sp.equals("a")) {
-						gc.setStroke(Color.DARKBLUE);
-						gc.strokeRoundRect(540, 420, 60, 60, 20, 20);
-					}
-					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-					gc.fillText("left : " + a, 620, 420);
-					gc.drawImage(RenderableHolder.artillery[0], 540, 420);
-					
-					if(a==0){
-						gc.setGlobalAlpha(0.7);
-						gc.setFill(Color.DIMGRAY);
-						gc.fillRoundRect(540, 420, 60, 60, 20, 20);
-						gc.setGlobalAlpha(1);
-					}
-				//}
-				//if (ap != 0) {
-					gc.setFill(Color.DARKGRAY);
-					gc.fillRoundRect(540, 540, 60, 60, 20, 20);
-					if (sp.equals("ap")) {
-						gc.setStroke(Color.DARKBLUE);
-						gc.strokeRoundRect(540, 540, 60, 60, 20, 20);
-					}
-					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-					gc.fillText("left : " + ap, 620, 540);
-					gc.drawImage(RenderableHolder.apc[0], 540, 540);
-					
-					if(ap==0){
-						gc.setGlobalAlpha(0.7);
-						gc.setFill(Color.DIMGRAY);
-						gc.fillRoundRect(540, 540, 60, 60, 20, 20);
-						gc.setGlobalAlpha(1);
-					}
-				//}
-				// paintComponents();
+		// if (s + a + t + ap != 0) {
+		if (getGm().getturn() == 1) {
+			// if (s != 0) {
+			gc.setFill(Color.DARKGRAY);
+			gc.fillRoundRect(540, 180, 60, 60, 20, 20);
+			if (sp.equals("s")) {
+				gc.setStroke(Color.DARKBLUE);
+				gc.strokeRoundRect(540, 180, 60, 60, 20, 20);
+			}
+			gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+			gc.fillText("left : " + s, 620, 180);
+			gc.drawImage(RenderableHolder.soldier[0], 540, 180);
 
-			} else {
-				if (getGm().getturn() == 2) {
-					//if (s != 0) {
-						gc.setFill(Color.DARKGRAY);
-						gc.fillRoundRect(240, 180, 60, 60, 20, 20);
-						if (sp.equals("s")) {
-							gc.setStroke(Color.DEEPPINK);
-							gc.strokeRoundRect(240, 180, 60, 60, 20, 20);
-						}
-						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-						gc.fillText("left : " + s, 320, 180);
-						gc.drawImage(RenderableHolder.soldier[0], 240, 180);
-						
-						if(s==0){
-							gc.setGlobalAlpha(0.7);
-							gc.setFill(Color.DIMGRAY);
-							gc.fillRoundRect(240, 180, 60, 60, 20, 20);
-							gc.setGlobalAlpha(1);
-						}
-					//}
-					//if (t != 0) {
-						gc.setFill(Color.DARKGRAY);
-						gc.fillRoundRect(240, 300, 60, 60, 20, 20);
-						if (sp.equals("t")) {
-							gc.setStroke(Color.DEEPPINK);
-							gc.strokeRoundRect(240, 300, 60, 60, 20, 20);
-						}
-						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-						gc.fillText("left : " + t, 320, 300);
-						gc.drawImage(RenderableHolder.tank[0], 240, 300);
-						
-						if(t==0){
-							gc.setGlobalAlpha(0.7);
-							gc.setFill(Color.DIMGRAY);
-							gc.fillRoundRect(240, 300, 60, 60, 20, 20);
-							gc.setGlobalAlpha(1);
-						}
-					//}
-					//if (a != 0) {
-						gc.setFill(Color.DARKGRAY);
-						gc.fillRoundRect(240, 420, 60, 60, 20, 20);
-						if (sp.equals("a")) {
-							gc.setStroke(Color.DEEPPINK);
-							gc.strokeRoundRect(240, 420, 60, 60, 20, 20);
-						}
-						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-						gc.fillText("left : " + a, 320, 420);
-						gc.drawImage(RenderableHolder.artillery[0], 240, 420);
-						
-						if(a==0){
-							gc.setGlobalAlpha(0.7);
-							gc.setFill(Color.DIMGRAY);
-							gc.fillRoundRect(240, 420, 60, 60, 20, 20);
-							gc.setGlobalAlpha(1);
-						}
-					//}
-					//if (ap != 0) {
-						gc.setFill(Color.DARKGRAY);
-						gc.fillRoundRect(240, 540, 60, 60, 20, 20);
-						if (sp.equals("ap")) {
-							gc.setStroke(Color.DEEPPINK);
-							gc.strokeRoundRect(240, 540, 60, 60, 20, 20);
-						}
-						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
-						gc.fillText("left : " + ap, 320, 540);
-						gc.drawImage(RenderableHolder.apc[0], 240, 540);
-						
-						if(ap==0){
-							gc.setGlobalAlpha(0.7);
-							gc.setFill(Color.DIMGRAY);
-							gc.fillRoundRect(240, 540, 60, 60, 20, 20);
-							gc.setGlobalAlpha(1);
-						}
-					//}
-					// paintComponents();
-				//}
+			if (s == 0) {
+				gc.setGlobalAlpha(0.7);
+				gc.setFill(Color.DIMGRAY);
+				gc.fillRoundRect(540, 180, 60, 60, 20, 20);
+				gc.setGlobalAlpha(1);
+			}
+			// }
+			// if (t != 0) {
+			gc.setFill(Color.DARKGRAY);
+			gc.fillRoundRect(540, 300, 60, 60, 20, 20);
+			if (sp.equals("t")) {
+				gc.setStroke(Color.DARKBLUE);
+				gc.strokeRoundRect(540, 300, 60, 60, 20, 20);
+			}
+			gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+			gc.fillText("left : " + t, 620, 300);
+			gc.drawImage(RenderableHolder.tank[0], 540, 300);
+
+			if (t == 0) {
+				gc.setGlobalAlpha(0.7);
+				gc.setFill(Color.DIMGRAY);
+				gc.fillRoundRect(540, 300, 60, 60, 20, 20);
+				gc.setGlobalAlpha(1);
+			}
+			// }
+			// if (a != 0) {
+			gc.setFill(Color.DARKGRAY);
+			gc.fillRoundRect(540, 420, 60, 60, 20, 20);
+			if (sp.equals("a")) {
+				gc.setStroke(Color.DARKBLUE);
+				gc.strokeRoundRect(540, 420, 60, 60, 20, 20);
+			}
+			gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+			gc.fillText("left : " + a, 620, 420);
+			gc.drawImage(RenderableHolder.artillery[0], 540, 420);
+
+			if (a == 0) {
+				gc.setGlobalAlpha(0.7);
+				gc.setFill(Color.DIMGRAY);
+				gc.fillRoundRect(540, 420, 60, 60, 20, 20);
+				gc.setGlobalAlpha(1);
+			}
+			// }
+			// if (ap != 0) {
+			gc.setFill(Color.DARKGRAY);
+			gc.fillRoundRect(540, 540, 60, 60, 20, 20);
+			if (sp.equals("ap")) {
+				gc.setStroke(Color.DARKBLUE);
+				gc.strokeRoundRect(540, 540, 60, 60, 20, 20);
+			}
+			gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+			gc.fillText("left : " + ap, 620, 540);
+			gc.drawImage(RenderableHolder.apc[0], 540, 540);
+
+			if (ap == 0) {
+				gc.setGlobalAlpha(0.7);
+				gc.setFill(Color.DIMGRAY);
+				gc.fillRoundRect(540, 540, 60, 60, 20, 20);
+				gc.setGlobalAlpha(1);
+			}
+			// }
+			// paintComponents();
+
+		} else {
+			if (getGm().getturn() == 2) {
+				// if (s != 0) {
+				gc.setFill(Color.DARKGRAY);
+				gc.fillRoundRect(240, 180, 60, 60, 20, 20);
+				if (sp.equals("s")) {
+					gc.setStroke(Color.DEEPPINK);
+					gc.strokeRoundRect(240, 180, 60, 60, 20, 20);
+				}
+				gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+				gc.fillText("left : " + s, 320, 180);
+				gc.drawImage(RenderableHolder.soldier[0], 240, 180);
+
+				if (s == 0) {
+					gc.setGlobalAlpha(0.7);
+					gc.setFill(Color.DIMGRAY);
+					gc.fillRoundRect(240, 180, 60, 60, 20, 20);
+					gc.setGlobalAlpha(1);
+				}
+				// }
+				// if (t != 0) {
+				gc.setFill(Color.DARKGRAY);
+				gc.fillRoundRect(240, 300, 60, 60, 20, 20);
+				if (sp.equals("t")) {
+					gc.setStroke(Color.DEEPPINK);
+					gc.strokeRoundRect(240, 300, 60, 60, 20, 20);
+				}
+				gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+				gc.fillText("left : " + t, 320, 300);
+				gc.drawImage(RenderableHolder.tank[0], 240, 300);
+
+				if (t == 0) {
+					gc.setGlobalAlpha(0.7);
+					gc.setFill(Color.DIMGRAY);
+					gc.fillRoundRect(240, 300, 60, 60, 20, 20);
+					gc.setGlobalAlpha(1);
+				}
+				// }
+				// if (a != 0) {
+				gc.setFill(Color.DARKGRAY);
+				gc.fillRoundRect(240, 420, 60, 60, 20, 20);
+				if (sp.equals("a")) {
+					gc.setStroke(Color.DEEPPINK);
+					gc.strokeRoundRect(240, 420, 60, 60, 20, 20);
+				}
+				gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+				gc.fillText("left : " + a, 320, 420);
+				gc.drawImage(RenderableHolder.artillery[0], 240, 420);
+
+				if (a == 0) {
+					gc.setGlobalAlpha(0.7);
+					gc.setFill(Color.DIMGRAY);
+					gc.fillRoundRect(240, 420, 60, 60, 20, 20);
+					gc.setGlobalAlpha(1);
+				}
+				// }
+				// if (ap != 0) {
+				gc.setFill(Color.DARKGRAY);
+				gc.fillRoundRect(240, 540, 60, 60, 20, 20);
+				if (sp.equals("ap")) {
+					gc.setStroke(Color.DEEPPINK);
+					gc.strokeRoundRect(240, 540, 60, 60, 20, 20);
+				}
+				gc.setFill(Color.LIGHTGOLDENRODYELLOW);
+				gc.fillText("left : " + ap, 320, 540);
+				gc.drawImage(RenderableHolder.apc[0], 240, 540);
+
+				if (ap == 0) {
+					gc.setGlobalAlpha(0.7);
+					gc.setFill(Color.DIMGRAY);
+					gc.fillRoundRect(240, 540, 60, 60, 20, 20);
+					gc.setGlobalAlpha(1);
+				}
+				// }
+				// paintComponents();
+				// }
 			}
 		}
 
@@ -706,22 +746,26 @@ public class GameZone extends Canvas {
 						// System.out.println("go get s");
 						sp = "s";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					if (t != 0 && ((int) event.getSceneX()) / 60 == 9 && ((int) event.getSceneY()) / 60 == 5) {
 						sp = "t";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					if (a != 0 && ((int) event.getSceneX()) / 60 == 9 && ((int) event.getSceneY()) / 60 == 7) {
 						sp = "a";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					if (ap != 0 && ((int) event.getSceneX()) / 60 == 9 && ((int) event.getSceneY()) / 60 == 9) {
 						sp = "ap";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					// paintComponents();
 
@@ -730,22 +774,26 @@ public class GameZone extends Canvas {
 					if (s != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 3) {
 						sp = "s";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					if (t != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 5) {
 						sp = "t";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					if (a != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 7) {
 						sp = "a";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 					if (ap != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 9) {
 						sp = "ap";
 						// place();
-						state = 8;
+						if(state == 7)state=6 ;
+						else state = 8;
 					}
 				}
 			}
@@ -775,7 +823,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									s--;
 									sp = "";
-									state = 9;
+									if(state == 6){
+										getGm().setP1Money(getGm().getP1Money()-50);
+										state = 7;
+										s=getGm().getP1Money()/50 ;
+										t=getGm().getP1Money()/50 ;
+										a=getGm().getP1Money()/50 ;
+										ap=getGm().getP1Money()/50 ;
+									}
+									else state = 9;
 								}
 								if (sp.equals("t")) {
 									getGm().createTank((((int) event.getSceneX()) / 60),
@@ -784,7 +840,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									t--;
 									sp = "";
-									state = 9;
+									if(state == 6){
+										getGm().setP1Money(getGm().getP1Money()-50);
+										state = 7;
+										s=getGm().getP1Money()/50 ;
+										t=getGm().getP1Money()/50 ;
+										a=getGm().getP1Money()/50 ;
+										ap=getGm().getP1Money()/50 ;
+									}
+									else state = 9;
 								}
 								if (sp.equals("a")) {
 									getGm().createArtillery((((int) event.getSceneX()) / 60),
@@ -793,7 +857,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									a--;
 									sp = "";
-									state = 9;
+									if(state == 6){
+										getGm().setP1Money(getGm().getP1Money()-50);
+										state = 7;
+										s=getGm().getP1Money()/50 ;
+										t=getGm().getP1Money()/50 ;
+										a=getGm().getP1Money()/50 ;
+										ap=getGm().getP1Money()/50 ;
+									}
+									else state = 9;
 								}
 								if (sp.equals("ap")) {
 									getGm().createAPC((((int) event.getSceneX()) / 60),
@@ -802,7 +874,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									ap--;
 									sp = "";
-									state = 9;
+									if(state == 6){
+										getGm().setP1Money(getGm().getP1Money()-50);
+										state = 7;
+										s=getGm().getP1Money()/50 ;
+										t=getGm().getP1Money()/50 ;
+										a=getGm().getP1Money()/50 ;
+										ap=getGm().getP1Money()/50 ;
+									}
+									else state = 9;
 								}
 							}
 						} else {
@@ -817,7 +897,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										s--;
 										sp = "";
-										state = 9;
+										if(state == 6){
+											getGm().setP2Money(getGm().getP2Money()-50);
+											state = 7;
+											s=getGm().getP2Money()/50 ;
+											t=getGm().getP2Money()/50 ;
+											a=getGm().getP2Money()/50 ;
+											ap=getGm().getP2Money()/50 ;
+										}
+										else state = 9;
 									}
 									if (sp.equals("t")) {
 										getGm().createTank((((int) event.getSceneX()) / 60),
@@ -826,7 +914,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										t--;
 										sp = "";
-										state = 9;
+										if(state == 6){
+											getGm().setP2Money(getGm().getP2Money()-50);
+											state = 7;
+											s=getGm().getP2Money()/50 ;
+											t=getGm().getP2Money()/50 ;
+											a=getGm().getP2Money()/50 ;
+											ap=getGm().getP2Money()/50 ;
+										}
+										else state = 9;
 									}
 									if (sp.equals("a")) {
 										getGm().createArtillery((((int) event.getSceneX()) / 60),
@@ -835,7 +931,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										a--;
 										sp = "";
-										state = 9;
+										if(state == 6){
+											getGm().setP2Money(getGm().getP2Money()-50);
+											state = 7;
+											s=getGm().getP2Money()/50 ;
+											t=getGm().getP2Money()/50 ;
+											a=getGm().getP2Money()/50 ;
+											ap=getGm().getP2Money()/50 ;
+										}
+										else state = 9;
 									}
 									if (sp.equals("ap")) {
 										getGm().createAPC((((int) event.getSceneX()) / 60),
@@ -844,7 +948,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										ap--;
 										sp = "";
-										state = 9;
+										if(state == 6){
+											getGm().setP2Money(getGm().getP2Money()-50);
+											state = 7;
+											s=getGm().getP2Money()/50 ;
+											t=getGm().getP2Money()/50 ;
+											a=getGm().getP2Money()/50 ;
+											ap=getGm().getP2Money()/50 ;
+										}
+										else state = 9;
 									}
 								}
 							}
@@ -853,6 +965,7 @@ public class GameZone extends Canvas {
 				} else {
 					sp = "";
 					state = 9;
+					if(state == 6)state = 6;
 				}
 			}
 		});
@@ -860,21 +973,23 @@ public class GameZone extends Canvas {
 		paintComponents();
 		prePlacingUnit();
 	}
-	public void countdown(){
+
+	public void countdown() {
 		this.timer = new Thread(() -> {
-			while(true){
+			while (true) {
 				try {
 					Thread.sleep(1000);
 					timeint--;
-					//drawCurrentTimeString(gc);
-					
+					// drawCurrentTimeString(gc);
+
 					Platform.runLater(new Runnable() {
 						public void run() {
 							setClock();
 						}
 					});
-					//System.out.println(timeint);
-					if(timeint<=0)stop();
+					// System.out.println(timeint);
+					if (timeint <= 0)
+						stop();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -886,10 +1001,11 @@ public class GameZone extends Canvas {
 		timer.start();
 		this.time.setText(timestr);
 	}
+
 	public void stop() throws InterruptedException {
 		// TODO Auto-generated method stub
 		this.timer.interrupt();
-		
+
 		for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
 			if (ir instanceof Unit) {
 				((Unit) ir).setmovable(false);
@@ -897,37 +1013,33 @@ public class GameZone extends Canvas {
 		}
 		gm.resetOverlay();
 		setState(0);
-		
+
 		paintComponents();
 	}
-	
-	public void setClock(){
-		this.timestr=""+timeint ;
-		//System.out.println(timestr);
-		//time.setText(""+timeint);
+
+	public void setClock() {
+		this.timestr = "" + timeint;
 		time.setText(timestr);
 	}
-	
-	
-	public void recruit(){
+
+	/*public void recruit() {
 		cancelAction();
-		
-		if(getGm().getturn()==1){
-			s=getGm().getP1Money()/50 ;
-			t=getGm().getP1Money()/50 ;
-			a=getGm().getP1Money()/50 ;
-			ap=getGm().getP1Money()/50 ;
-			}
-		else{
-			if(getGm().getturn()==2){
-				s=getGm().getP2Money()/50 ;
-				t=getGm().getP2Money()/50 ;
-				a=getGm().getP2Money()/50 ;
-				ap=getGm().getP2Money()/50 ;
+
+		if (getGm().getturn() == 1) {
+			s = getGm().getP1Money() / 50;
+			t = getGm().getP1Money() / 50;
+			a = getGm().getP1Money() / 50;
+			ap = getGm().getP1Money() / 50;
+		} else {
+			if (getGm().getturn() == 2) {
+				s = getGm().getP2Money() / 50;
+				t = getGm().getP2Money() / 50;
+				a = getGm().getP2Money() / 50;
+				ap = getGm().getP2Money() / 50;
 			}
 		}
-		state=9 ;
-	}
+		state = 9;
+	}*/
 
 	public Label getDesc() {
 		return desc;
@@ -960,6 +1072,7 @@ public class GameZone extends Canvas {
 	public void setSp(String sp) {
 		this.sp = sp;
 	}
+
 	public int getState() {
 		return state;
 	}
@@ -982,6 +1095,10 @@ public class GameZone extends Canvas {
 
 	public Thread getTimer() {
 		return timer;
+	}
+
+	public int getTimeint() {
+		return timeint;
 	}
 
 }
