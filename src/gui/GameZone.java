@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.converter.TimeStringConverter;
 import logic.APC;
 import logic.Artillery;
 import logic.GameManager;
@@ -32,6 +33,9 @@ public class GameZone extends Canvas {
 	private GraphicsContext gc = this.getGraphicsContext2D();
 
 	private Label desc = new Label();
+	
+	private String timestr = "15";
+	private Label time = new Label(timestr);
 
 	int p = 0;
 	int q = 0;
@@ -44,6 +48,10 @@ public class GameZone extends Canvas {
 	private int ap = 2;
 
 	private Unit unit;
+	
+	private int timeint = 15;
+	
+	private Thread timer ;
 
 	private GameManager gm;
 
@@ -741,6 +749,55 @@ public class GameZone extends Canvas {
 		paintComponents();
 		prePlacingUnit();
 	}
+	
+	public void countdown(){
+		this.timer = new Thread(() -> {
+			while(true){
+				try {
+					Thread.sleep(1000);
+					timeint--;
+					//drawCurrentTimeString(gc);
+					
+					Platform.runLater(new Runnable() {
+						public void run() {
+							setClock();
+						}
+					});
+					
+					if(timeint<=0)stop();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Stop Timer Thread");
+					break;
+				}
+			}
+		});
+		timer.start();
+		this.time.setText(timestr);
+	}
+	
+	public void stop() throws InterruptedException {
+		// TODO Auto-generated method stub
+		this.timer.interrupt();
+		
+		for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
+			if (ir instanceof Unit) {
+				((Unit) ir).setmovable(false);
+			}
+		}
+		gm.resetOverlay();
+		setState(0);
+		
+		paintComponents();
+	}
+	
+	public void setClock(){
+		this.timestr=""+timeint ;
+		System.out.println(timestr);
+		//time.setText(""+timeint);
+		time.setText(timestr);
+	}
 
 	public Label getDesc() {
 		return desc;
@@ -772,6 +829,30 @@ public class GameZone extends Canvas {
 
 	public void setSp(String sp) {
 		this.sp = sp;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public Label getTime() {
+		return time;
+	}
+
+	public void setTime(Label time) {
+		this.time = time;
+	}
+
+	public void setTimeint(int timeint) {
+		this.timeint = timeint;
+	}
+
+	public String getTimestr() {
+		return timestr;
+	}
+
+	public Thread getTimer() {
+		return timer;
 	}
 
 }

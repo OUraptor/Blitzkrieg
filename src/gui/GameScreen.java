@@ -1,36 +1,53 @@
 package gui;
 
+import java.io.IOException;
+
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import logic.Unit;
+import main.Main;
 
 public class GameScreen extends BorderPane {
-
+	
+	
+	
 	public static final int gscreenwidth = 1330;
 	public static final int gscreenheight = 720;
 	public static final int ctrwidth = 250;
 	private GameZone gz = new GameZone();
+	
+	
+	//private String timeStr = "";
+	
+	private Label time = new Label();
 
 	private Label turnButton = new Label("Start Game");
 
-	public GameScreen() {
+	public GameScreen() throws IOException {
 		this.setPrefSize(gscreenwidth, gscreenheight);
-
+		FlowPane Ctr = new FlowPane();
+		
 		BorderPane ctrcenter = new BorderPane();
 		FlowPane info = new FlowPane();
 		FlowPane act = new FlowPane();
-
+		
+		
 		ctrcenter.setPrefWidth(250);
 		ctrcenter.setStyle("-fx-background-color: black");
-
+		
 		gz.setInfo();
 
 		gz.getDesc().setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
@@ -64,13 +81,6 @@ public class GameScreen extends BorderPane {
 
 				if (turnButton.getText().toString() == "Start Game") {
 					turnButton.setText("End placing");
-
-					/*
-					 * for (IRenderable ir :
-					 * RenderableHolder.getInstance().getEntities()) { if (ir
-					 * instanceof Unit) { if (((Unit) ir).getPlayer() == 1)
-					 * ((Unit) ir).setmovable(true); } }
-					 */
 					gz.setState(9);
 					gz.paintComponents();
 				} else {
@@ -98,39 +108,106 @@ public class GameScreen extends BorderPane {
 									}
 								}
 								gz.paintComponents();
+								gz.countdown();
 							}
 						}
 					} else {
-						/*if (turnButton.getText().toString() == "P2 placing Unit") {
-							turnButton.setText("End placing");
-							gz.getGm().setturn(1);
+						
+						if(turnButton.getText().equals("P1 Turn End")){
 							
-						} else{*/
-							/*if(turnButton.getText().toString() == "End placing"){
-								turnButton.setText("P1 Turn End");
-								gz.setState(0);
-								for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
-									if (ir instanceof Unit) {
-										if (((Unit) ir).getPlayer() == 1)
-											((Unit) ir).setmovable(true);
-									}
-								}
-								gz.paintComponents();
+							try {
+								gz.stop();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								System.out.println("Stop Timer Thread");
 							}
-							else*/ buttonToggle();
+							
+							turnButton.setText("P2 Go!");
+						}
+						else{
+							if(turnButton.getText().equals("P2 Turn End")){
+								try {
+									gz.stop();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									System.out.println("Stop Timer Thread");
+								}
+								turnButton.setText("P1 Go!");
+							}
+							else{
+								buttonToggle();
+								gz.setTimeint(15);
+								gz.countdown();
+							}
+						}
+						
+						
+						
 							}
 				}
 			}
 		});
-
+		/*Thread timer = new Thread(() -> {
+			try{
+				while(true){
+					Thread.sleep(1000);
+					timerdown(timeint);
+					System.out.println(timeint);
+				}
+			}catch(InterruptedException e){
+				
+			}
+		});
+		timer.start();*/
+		/*this.timeint = 15;
+		
+		Thread timer = new Thread(() -> {
+			while(timeint>=0){
+				try {
+					Thread.sleep(1000);
+					timeint--;
+					//drawCurrentTimeString(gc);
+					System.out.println(timeint);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Stop Timer Thread");
+					//break;
+				}
+			}
+		});
+		timer.start();*/
+		
+		
+		System.out.println("");
+		
+		//if(gz.getState()==10 || gz.getState()==9 ||gz.getState()==8)gz.getTime().setText("");
+		//else timeStr = ""+timeint;
+		//gz.getTime().setText(gz.getTimestr());
+		gz.getTime().setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 40));
+		gz.getTime().setTextFill(Color.WHITE);
+		Ctr.setAlignment(Pos.CENTER);
+		Ctr.getChildren().add(gz.getTime());
+		
 		this.setCenter(gz);
 		this.setRight(ctrcenter);
+		ctrcenter.setTop(Ctr);
 		ctrcenter.setCenter(info);
 		ctrcenter.setBottom(act);
-
+		
+		
 	}
+	/*public void timerdown(int timeint) {
+		// TODO Auto-generated method stub
+		
+		timeint--;
+		
+	}*/
 
 	public void buttonToggle() {
+		
 		if (gz.getGm().getturn() == 1) {
 			gz.getGm().setturn(2);
 			for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
@@ -144,6 +221,7 @@ public class GameScreen extends BorderPane {
 			gz.getGm().resetOverlay();
 			gz.setState(0);
 			turnButton.setText("P2 Turn End");
+			
 			gz.paintComponents();
 		}
 
@@ -162,6 +240,7 @@ public class GameScreen extends BorderPane {
 				gz.getGm().resetOverlay();
 				gz.setState(0);
 				turnButton.setText("P1 Turn End");
+				
 				gz.paintComponents();
 
 			}
