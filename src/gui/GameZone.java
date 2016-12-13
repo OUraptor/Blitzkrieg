@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.util.converter.TimeStringConverter;
 import logic.APC;
 import logic.Artillery;
 import logic.GameManager;
@@ -31,27 +30,26 @@ public class GameZone extends Canvas {
 	private static final int zoneheight = GameScreen.gscreenheight;
 
 	private GraphicsContext gc = this.getGraphicsContext2D();
-
+	
 	private Label desc = new Label();
 	
 	private String timestr = "15";
 	private Label time = new Label(timestr);
-
-	int p = 0;
-	int q = 0;
+	private Thread timer ;
+	private int timeint = 15;
+	
+	private int xtemp=-1 ;
+	private int ytemp=-1 ;
+	
 	private int state = 10;
 	private String sp = "";
-
+	
 	private int s = 3;
 	private int a = 1;
 	private int t = 2;
 	private int ap = 2;
 
 	private Unit unit;
-	
-	private int timeint = 15;
-	
-	private Thread timer ;
 
 	private GameManager gm;
 
@@ -82,6 +80,7 @@ public class GameZone extends Canvas {
 						// " + gm.getP2unit());
 					} catch (Myexception e) {
 						stop();
+						//state = 10 ;
 						if(gm.getP1unit() == 0 && gm.getP2unit() == 0){
 							Platform.runLater(new Runnable() {
 								public void run() {
@@ -138,18 +137,17 @@ public class GameZone extends Canvas {
 		// Fill in here
 		String image_path = "file:res/field.jpg";
 		Image javafx_logo = new Image(image_path);
-		
 		gc.setFill(Color.LIGHTGRAY);
-		gc.fillRect(0, 0, zonewidth, zoneheight);
-		
 		gc.drawImage(javafx_logo,0,0,1080,720);
-		
+		//gc.setFill(Color.LIGHTGRAY);
+		//gc.fillRect(0, 0, zonewidth, zoneheight);
+
 		if (state == 8 || state == 9) {
 			gc.setLineWidth(2.0);
 			for (int i = 0; i <= zonewidth; i += 60) {
 				for (int j = 0; j <= zoneheight; j += 60) {
-					//gc.setStroke(Color.WHITE);
-					//gc.strokeRoundRect(i, j, 60, 60, 0, 0);
+					gc.setStroke(Color.WHITE);
+					gc.strokeRoundRect(i, j, 60, 60, 0, 0);
 				}
 			}
 		}
@@ -167,13 +165,17 @@ public class GameZone extends Canvas {
 	}
 
 	public void gogo(GameManager gm) {
-		/*
-		 * System.out.println("state : " + state); System.out.println("sp : " +
-		 * sp); System.out.println("turn : " + getGm().getturn());
-		 */
+		
+		 //System.out.println("state : " + state);// System.out.println("sp : " +
+		 //sp); System.out.println("turn : " + getGm().getturn());
+		 
 		if (state == 10) {
 			gc.setFill(Color.PURPLE);
-			gc.fillRect(0, 0, zonewidth, zoneheight);
+			String image_path = "file:res/loading.jpg";
+			Image javafx_logo = new Image(image_path);
+			gc.setFill(Color.LIGHTGRAY);
+			gc.drawImage(javafx_logo,0,0,1080,720);
+			//gc.fillRect(0, 0, zonewidth, zoneheight);
 		} else {
 			if (state == 9) {
 				paintComponents();
@@ -207,7 +209,7 @@ public class GameZone extends Canvas {
 					} else
 						state = 0;
 
-					gm.update();
+					//gm.update();
 				}
 			}
 		}
@@ -292,19 +294,64 @@ public class GameZone extends Canvas {
 						}
 						
 						gm.getUPos()[u.getX() / 60][u.getY() / 60] = 0;
-						u.setX(((int) (event.getSceneX()) / 60) * 60);
-						u.setY(((int) (event.getSceneY()) / 60) * 60);
-						gm.getUPos()[u.getX() / 60][u.getY() / 60] = u.getPlayer();
+						
+						/*u.setX(((int) (event.getSceneX()) / 60) * 60);
+						u.setY(((int) (event.getSceneY()) / 60) * 60);*/
+						//gm.getUPos()[u.getX() / 60][u.getY() / 60] = u.getPlayer();
+						gm.getUPos()[(int) (event.getSceneX()) / 60][(int) (event.getSceneY()) / 60] = u.getPlayer();
+						xtemp=((int) (event.getSceneX()) / 60) * 60 ;
+						ytemp=((int) (event.getSceneY()) / 60) * 60 ;
+						//gm.update(u, ((int) (event.getSceneX()) / 60) * 60, ((int) (event.getSceneY()) / 60) * 60);
 						gm.resetOverlay();
 						u.setmovable(false);
+						//gm.getUPos()[((int) (event.getSceneX()) / 60)][((int) (event.getSceneY()) / 60) / 60] = u.getPlayer();
+						Thread t = new Thread(() -> {
+							while(u.getX()!=((int) (event.getSceneX()) / 60) * 60||u.getY()!=((int) (event.getSceneY()) / 60) * 60){
+								try {
+									Thread.sleep(50);
+									if(u.getX()>((int) (event.getSceneX()) / 60) * 60){
+										u.setX(u.getX()-10);
+									}
+									if(u.getX()<((int) (event.getSceneX()) / 60) * 60){
+										u.setX(u.getX()+10);
+									}
+									if(u.getY()>((int) (event.getSceneY()) / 60) * 60){
+										u.setY(u.getY()-10);
+									}
+									if(u.getY()<((int) (event.getSceneY()) / 60) * 60){
+										u.setY(u.getY()+10);
+									}
+									paintComponents();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									System.out.println("Stop Timer Thread");
+									break;
+								}
+							}
+						});
+						t.start();
+						//System.out.println(((int) (event.getSceneX()) / 60) * 60+" "+((int) (event.getSceneY()) / 60) * 60);
+						/*if(u.getX()==((int) (event.getSceneX()) / 60) * 60&&u.getY()==((int) (event.getSceneY()) / 60) * 60){
+						//gm.resetOverlay();
+						u.setmovable(false);
 						state = 2;
+						}*/
 
 					}
 					paintComponents();
 				} else
 					cancelAction();
+				
 			}
 		});
+		System.out.println(u.getX()+" "+u.getY());
+		System.out.println(xtemp+" "+ytemp);
+		if(u.getX()==xtemp&&u.getY()==ytemp){
+			//gm.resetOverlay();
+			//u.setmovable(false);
+			state = 2;
+			}
 	}
 
 	public void atkgrid(GameManager gm, Unit u) {
@@ -466,16 +513,22 @@ public class GameZone extends Canvas {
 			}
 		}
 	}
-
+	
 	private void prePlacingUnit() {
 		paintComponents();
 		if (gm.getturn() == 1) {
-			gc.setFill(Color.DARKGOLDENROD);
-			gc.fillRect(300, 0, zonewidth - 300, zoneheight);
+			String image_path = "file:res/build.jpg";
+			Image javafx_logo = new Image(image_path);
+			gc.setFill(Color.LIGHTGRAY);
+			gc.drawImage(javafx_logo,300,0,zonewidth - 300, zoneheight);
+			
 			iconPlacing();
 		} else if (gm.getturn() == 2) {
-			gc.setFill(Color.DARKGOLDENROD);
-			gc.fillRect(0, 0, zonewidth - 300, zoneheight);
+			String image_path = "file:res/build.jpg";
+			Image javafx_logo = new Image(image_path);
+			gc.setFill(Color.LIGHTGRAY);
+			gc.drawImage(javafx_logo,0,0,zonewidth - 300, zoneheight);
+			
 		}
 		iconPlacing();
 	}
@@ -484,9 +537,9 @@ public class GameZone extends Canvas {
 
 		Font theFont = Font.font("Arial", FontWeight.LIGHT, 20);
 		gc.setFont(theFont);
-		if (s + a + t + ap != 0) {
+		//if (s + a + t + ap != 0) {
 			if (getGm().getturn() == 1) {
-				if (s != 0) {
+				//if (s != 0) {
 					gc.setFill(Color.DARKGRAY);
 					gc.fillRoundRect(540, 180, 60, 60, 20, 20);
 					if (sp.equals("s")) {
@@ -496,8 +549,15 @@ public class GameZone extends Canvas {
 					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 					gc.fillText("left : " + s, 620, 180);
 					gc.drawImage(RenderableHolder.soldier[0], 540, 180);
-				}
-				if (t != 0) {
+					
+					if(s==0){
+						gc.setGlobalAlpha(0.7);
+						gc.setFill(Color.DIMGRAY);
+						gc.fillRoundRect(540, 180, 60, 60, 20, 20);
+						gc.setGlobalAlpha(1);
+					}
+				//}
+				//if (t != 0) {
 					gc.setFill(Color.DARKGRAY);
 					gc.fillRoundRect(540, 300, 60, 60, 20, 20);
 					if (sp.equals("t")) {
@@ -507,8 +567,15 @@ public class GameZone extends Canvas {
 					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 					gc.fillText("left : " + t, 620, 300);
 					gc.drawImage(RenderableHolder.tank[0], 540, 300);
-				}
-				if (a != 0) {
+					
+					if(t==0){
+						gc.setGlobalAlpha(0.7);
+						gc.setFill(Color.DIMGRAY);
+						gc.fillRoundRect(540, 300, 60, 60, 20, 20);
+						gc.setGlobalAlpha(1);
+					}
+				//}
+				//if (a != 0) {
 					gc.setFill(Color.DARKGRAY);
 					gc.fillRoundRect(540, 420, 60, 60, 20, 20);
 					if (sp.equals("a")) {
@@ -518,8 +585,15 @@ public class GameZone extends Canvas {
 					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 					gc.fillText("left : " + a, 620, 420);
 					gc.drawImage(RenderableHolder.artillery[0], 540, 420);
-				}
-				if (ap != 0) {
+					
+					if(a==0){
+						gc.setGlobalAlpha(0.7);
+						gc.setFill(Color.DIMGRAY);
+						gc.fillRoundRect(540, 420, 60, 60, 20, 20);
+						gc.setGlobalAlpha(1);
+					}
+				//}
+				//if (ap != 0) {
 					gc.setFill(Color.DARKGRAY);
 					gc.fillRoundRect(540, 540, 60, 60, 20, 20);
 					if (sp.equals("ap")) {
@@ -529,12 +603,19 @@ public class GameZone extends Canvas {
 					gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 					gc.fillText("left : " + ap, 620, 540);
 					gc.drawImage(RenderableHolder.apc[0], 540, 540);
-				}
+					
+					if(ap==0){
+						gc.setGlobalAlpha(0.7);
+						gc.setFill(Color.DIMGRAY);
+						gc.fillRoundRect(540, 540, 60, 60, 20, 20);
+						gc.setGlobalAlpha(1);
+					}
+				//}
 				// paintComponents();
 
 			} else {
 				if (getGm().getturn() == 2) {
-					if (s != 0) {
+					//if (s != 0) {
 						gc.setFill(Color.DARKGRAY);
 						gc.fillRoundRect(240, 180, 60, 60, 20, 20);
 						if (sp.equals("s")) {
@@ -544,8 +625,15 @@ public class GameZone extends Canvas {
 						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 						gc.fillText("left : " + s, 320, 180);
 						gc.drawImage(RenderableHolder.soldier[0], 240, 180);
-					}
-					if (t != 0) {
+						
+						if(s==0){
+							gc.setGlobalAlpha(0.7);
+							gc.setFill(Color.DIMGRAY);
+							gc.fillRoundRect(240, 180, 60, 60, 20, 20);
+							gc.setGlobalAlpha(1);
+						}
+					//}
+					//if (t != 0) {
 						gc.setFill(Color.DARKGRAY);
 						gc.fillRoundRect(240, 300, 60, 60, 20, 20);
 						if (sp.equals("t")) {
@@ -555,8 +643,15 @@ public class GameZone extends Canvas {
 						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 						gc.fillText("left : " + t, 320, 300);
 						gc.drawImage(RenderableHolder.tank[0], 240, 300);
-					}
-					if (a != 0) {
+						
+						if(t==0){
+							gc.setGlobalAlpha(0.7);
+							gc.setFill(Color.DIMGRAY);
+							gc.fillRoundRect(240, 300, 60, 60, 20, 20);
+							gc.setGlobalAlpha(1);
+						}
+					//}
+					//if (a != 0) {
 						gc.setFill(Color.DARKGRAY);
 						gc.fillRoundRect(240, 420, 60, 60, 20, 20);
 						if (sp.equals("a")) {
@@ -566,8 +661,15 @@ public class GameZone extends Canvas {
 						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 						gc.fillText("left : " + a, 320, 420);
 						gc.drawImage(RenderableHolder.artillery[0], 240, 420);
-					}
-					if (ap != 0) {
+						
+						if(a==0){
+							gc.setGlobalAlpha(0.7);
+							gc.setFill(Color.DIMGRAY);
+							gc.fillRoundRect(240, 420, 60, 60, 20, 20);
+							gc.setGlobalAlpha(1);
+						}
+					//}
+					//if (ap != 0) {
 						gc.setFill(Color.DARKGRAY);
 						gc.fillRoundRect(240, 540, 60, 60, 20, 20);
 						if (sp.equals("ap")) {
@@ -577,9 +679,16 @@ public class GameZone extends Canvas {
 						gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 						gc.fillText("left : " + ap, 320, 540);
 						gc.drawImage(RenderableHolder.apc[0], 240, 540);
-					}
+						
+						if(ap==0){
+							gc.setGlobalAlpha(0.7);
+							gc.setFill(Color.DIMGRAY);
+							gc.fillRoundRect(240, 540, 60, 60, 20, 20);
+							gc.setGlobalAlpha(1);
+						}
+					//}
 					// paintComponents();
-				}
+				//}
 			}
 		}
 
@@ -749,7 +858,6 @@ public class GameZone extends Canvas {
 		paintComponents();
 		prePlacingUnit();
 	}
-	
 	public void countdown(){
 		this.timer = new Thread(() -> {
 			while(true){
@@ -763,7 +871,7 @@ public class GameZone extends Canvas {
 							setClock();
 						}
 					});
-					
+					//System.out.println(timeint);
 					if(timeint<=0)stop();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -776,7 +884,6 @@ public class GameZone extends Canvas {
 		timer.start();
 		this.time.setText(timestr);
 	}
-	
 	public void stop() throws InterruptedException {
 		// TODO Auto-generated method stub
 		this.timer.interrupt();
@@ -794,9 +901,30 @@ public class GameZone extends Canvas {
 	
 	public void setClock(){
 		this.timestr=""+timeint ;
-		System.out.println(timestr);
+		//System.out.println(timestr);
 		//time.setText(""+timeint);
 		time.setText(timestr);
+	}
+	
+	
+	public void recruit(){
+		cancelAction();
+		
+		if(getGm().getturn()==1){
+			s=getGm().getP1Money()/50 ;
+			t=getGm().getP1Money()/50 ;
+			a=getGm().getP1Money()/50 ;
+			ap=getGm().getP1Money()/50 ;
+			}
+		else{
+			if(getGm().getturn()==2){
+				s=getGm().getP2Money()/50 ;
+				t=getGm().getP2Money()/50 ;
+				a=getGm().getP2Money()/50 ;
+				ap=getGm().getP2Money()/50 ;
+			}
+		}
+		state=9 ;
 	}
 
 	public Label getDesc() {
@@ -830,7 +958,6 @@ public class GameZone extends Canvas {
 	public void setSp(String sp) {
 		this.sp = sp;
 	}
-
 	public int getState() {
 		return state;
 	}

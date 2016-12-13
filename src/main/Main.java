@@ -71,7 +71,8 @@ public class Main extends Application{
 		if(this.primaryStage.getScene()==this.HOME){
 			sound.stop();
 			playsound(sound);
-			
+			this.gameScreen = new GameScreen() ;
+			this.Play = new Scene(gameScreen) ;
 			this.primaryStage.setScene(this.Play);
 		}
 			

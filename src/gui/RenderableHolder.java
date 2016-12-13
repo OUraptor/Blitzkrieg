@@ -42,6 +42,7 @@ public class RenderableHolder {
 	
 	private static void loadResource() {
 		ClassLoader loader = ClassLoader.getSystemClassLoader() ;
+		
 		tank[0] = new Image(loader.getResourceAsStream("tankr.png")) ;
 		tank[1] = new Image(loader.getResourceAsStream("tankl.png")) ;
 		soldier[0] = new Image(loader.getResourceAsStream("soldierr.png")) ;
