@@ -1,3 +1,6 @@
+// Witsarut Boonmasuvaran 5831066721
+// Possatorn Buakhom 5831043221
+// Blitzkrieg master
 package gui;
 
 import javafx.event.EventHandler;
@@ -15,36 +18,35 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import logic.Unit;
 
-
 public class GameScreen extends BorderPane {
 
 	public static final int gscreenwidth = 1330;
 	public static final int gscreenheight = 720;
 	public static final int ctrwidth = 250;
 	private GameZone gz = new GameZone();
-	
+
 	private Label turnButton = new Label("Start Game");
-	private Button shopbutton = new Button("Shop") ;
+	private Button shopbutton = new Button("Shop");
 
 	public GameScreen() {
 		this.setPrefSize(gscreenwidth, gscreenheight);
-		/*FlowPane Money = new FlowPane();
-		Label getp1M = new Label();
-		Label getp2M = new Label();
-		getp1M.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
-		getp2M.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
-		getp1M.setTextFill(Color.LIGHTBLUE);
-		getp2M.setTextFill(Color.LIGHTBLUE);
-		getp1M.setText("Player1 money:"+gz.getGm().getP1Money());
-		getp2M.setText("Player2 money:"+gz.getGm().getP2Money());
-		Money.getChildren().add(getp1M);
-		Money.getChildren().add(getp2M);*/
-		
+		/*
+		 * FlowPane Money = new FlowPane(); Label getp1M = new Label(); Label
+		 * getp2M = new Label(); getp1M.setFont(Font.font("Tahoma",
+		 * FontWeight.BOLD, FontPosture.ITALIC, 20));
+		 * getp2M.setFont(Font.font("Tahoma", FontWeight.BOLD,
+		 * FontPosture.ITALIC, 20)); getp1M.setTextFill(Color.LIGHTBLUE);
+		 * getp2M.setTextFill(Color.LIGHTBLUE);
+		 * getp1M.setText("Player1 money:"+gz.getGm().getP1Money());
+		 * getp2M.setText("Player2 money:"+gz.getGm().getP2Money());
+		 * Money.getChildren().add(getp1M); Money.getChildren().add(getp2M);
+		 */
+
 		FlowPane Ctr = new FlowPane();
 		BorderPane ctrcenter = new BorderPane();
 		FlowPane act = new FlowPane();
 		GridPane gp = new GridPane();
-		
+
 		ctrcenter.setPrefWidth(250);
 		ctrcenter.setStyle("-fx-background-color: black");
 
@@ -52,12 +54,12 @@ public class GameScreen extends BorderPane {
 
 		gz.getDesc().setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
 		gz.getDesc().setTextFill(Color.LIGHTBLUE);
-		
-		//info.getChildren().add(shopbutton);
-		//info.setAlignment(Pos.CENTER);
-		//info.setPadding(new Insets(30, 10, 10, 15));
-		//info.getChildren().add(gz.getDesc());
-		
+
+		// info.getChildren().add(shopbutton);
+		// info.setAlignment(Pos.CENTER);
+		// info.setPadding(new Insets(30, 10, 10, 15));
+		// info.getChildren().add(gz.getDesc());
+
 		gp.add(shopbutton, 0, 0);
 		gp.add(gz.getDesc(), 0, 1);
 		gp.setAlignment(Pos.CENTER);
@@ -69,26 +71,25 @@ public class GameScreen extends BorderPane {
 		// Label turnButton = new Label("Start Game");
 		turnButton.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 40));
 		turnButton.setTextFill(Color.WHITE);
-		
+
 		shopbutton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(gz.getState()==0){
-					if(gz.getGm().getturn()==1){
-						gz.setS(gz.getGm().getP1Money()/50);
-						gz.setA(gz.getGm().getP1Money()/50);
-						gz.setT(gz.getGm().getP1Money()/50);
-						gz.setAp(gz.getGm().getP1Money()/50);
+				if (gz.getState() == 0) {
+					if (gz.getGm().getturn() == 1) {
+						gz.setS(gz.getGm().getP1Money() / 50);
+						gz.setA(gz.getGm().getP1Money() / 50);
+						gz.setT(gz.getGm().getP1Money() / 50);
+						gz.setAp(gz.getGm().getP1Money() / 50);
 					}
-					if(gz.getGm().getturn()==2){
-						gz.setS(gz.getGm().getP2Money()/50);
-						gz.setA(gz.getGm().getP2Money()/50);
-						gz.setT(gz.getGm().getP2Money()/50);
-						gz.setAp(gz.getGm().getP2Money()/50);	
+					if (gz.getGm().getturn() == 2) {
+						gz.setS(gz.getGm().getP2Money() / 50);
+						gz.setA(gz.getGm().getP2Money() / 50);
+						gz.setT(gz.getGm().getP2Money() / 50);
+						gz.setAp(gz.getGm().getP2Money() / 50);
 					}
 					gz.setState(7);
-				}
-				else {
-					if(gz.getState()==7||gz.getState()==6){
+				} else {
+					if (gz.getState() == 7 || gz.getState() == 6) {
 						gz.setState(0);
 						gz.paintComponents();
 					}
@@ -127,17 +128,16 @@ public class GameScreen extends BorderPane {
 				} else {
 
 					if (turnButton.getText().toString() == "End placing") {
-						if(gz.getGm().getturn()==1){
+						if (gz.getGm().getturn() == 1) {
 							gz.getGm().setturn(2);
 							gz.setS(3);
 							gz.setA(1);
 							gz.setT(2);
 							gz.setAp(2);
 							gz.setSp("");
-						}
-						else {
-							if(gz.getGm().getturn()==2){
-								
+						} else {
+							if (gz.getGm().getturn() == 2) {
+
 								turnButton.setText("P1 Go!");
 								gz.setState(0);
 								gz.paintComponents();
@@ -145,24 +145,23 @@ public class GameScreen extends BorderPane {
 							}
 						}
 					} else {
-							if(turnButton.getText().equals("P1 Turn End")){
-							
+						if (turnButton.getText().equals("P1 Turn End")) {
+
 							try {
-								gz.getGm().setP1Money(gz.getGm().getP1Money()+gz.getTimeint()*10);
+								gz.getGm().setP1Money(gz.getGm().getP1Money() + gz.getTimeint() * 10);
 								gz.stop();
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 								System.out.println("Stop Timer Thread");
 							}
-							
+
 							turnButton.setText("P2 Go!");
 							gz.setState(-1);
-						}
-						else{
-							if(turnButton.getText().equals("P2 Turn End")){
+						} else {
+							if (turnButton.getText().equals("P2 Turn End")) {
 								try {
-									gz.getGm().setP2Money(gz.getGm().getP2Money()+gz.getTimeint()*10);
+									gz.getGm().setP2Money(gz.getGm().getP2Money() + gz.getTimeint() * 10);
 									gz.stop();
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
@@ -171,25 +170,25 @@ public class GameScreen extends BorderPane {
 								}
 								turnButton.setText("P1 Go!");
 								gz.setState(-1);
-							}
-							else{
+							} else {
 								buttonToggle();
 								gz.setTimeint(15);
 								gz.countdown();
 							}
 						}
-							}
+					}
 				}
 			}
 		});
-		if(gz.getState()==10||gz.getState()==9||gz.getState()==8)gz.getTime().setText("");
+		if (gz.getState() == 10 || gz.getState() == 9 || gz.getState() == 8)
+			gz.getTime().setText("");
 		gz.getTime().setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 40));
 		gz.getTime().setTextFill(Color.WHITE);
 		Ctr.setAlignment(Pos.CENTER);
 		Ctr.getChildren().add(gz.getTime());
 		this.setCenter(gz);
 		this.setRight(ctrcenter);
-		
+
 		ctrcenter.setCenter(gp);
 		ctrcenter.setBottom(act);
 		ctrcenter.setTop(Ctr);

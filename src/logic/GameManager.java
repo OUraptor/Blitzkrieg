@@ -106,8 +106,7 @@ public class GameManager {
 		}
 	}
 	
-	public void update() {
-	}
+	
 	
 	public void checkwin(){
 		if(p1unit==0){

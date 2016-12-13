@@ -1,3 +1,6 @@
+// Witsarut Boonmasuvaran 5831066721
+// Possatorn Buakhom 5831043221
+// Blitzkrieg master
 package gui;
 
 import javafx.animation.AnimationTimer;
@@ -49,16 +52,16 @@ public class GameZone extends Canvas {
 	private int t = 2;
 	private int ap = 2;
 
-	//private String image_path3 = "file:res/build.jpg";
-	//protected Image build = new Image(image_path3); 
+	// private String image_path3 = "file:res/build.jpg";
+	// protected Image build = new Image(image_path3);
 	protected Image build = new Image(ClassLoader.getSystemResource("build.jpg").toString());
-	
-	//private String image_path2 = "file:res/loading.jpg";
+
+	// private String image_path2 = "file:res/loading.jpg";
 	protected Image loading = new Image(ClassLoader.getSystemResource("loading.jpg").toString());
 
 	private Unit unit;
 
-	//private String image_path = "file:res/field.jpg";
+	// private String image_path = "file:res/field.jpg";
 	protected Image javafx_logo = new Image(ClassLoader.getSystemResource("field.jpg").toString());
 
 	private GameManager gm;
@@ -90,8 +93,8 @@ public class GameZone extends Canvas {
 						// " + gm.getP2unit());
 					} catch (Myexception e) {
 						stop();
-						//state = 10 ;
-						if(gm.getP1unit() == 0 && gm.getP2unit() == 0){
+						// state = 10 ;
+						if (gm.getP1unit() == 0 && gm.getP2unit() == 0) {
 							Platform.runLater(new Runnable() {
 								public void run() {
 									Alert alert = new Alert(AlertType.INFORMATION);
@@ -101,59 +104,60 @@ public class GameZone extends Canvas {
 									alert.showAndWait();
 								}
 							});
+						} else {
+							if (gm.getP1unit() == 0) {
+								// System.out.println("rip p1");
+
+								Platform.runLater(new Runnable() {
+									public void run() {
+										Alert alert = new Alert(AlertType.INFORMATION);
+										alert.setTitle("P2 Win!!!");
+										alert.setHeaderText(null);
+										alert.setContentText("Player 2 Win!!!");
+										alert.showAndWait();
+									}
+								});
+							} else if (gm.getP2unit() == 0)
+
+							{
+								// System.out.println("rip p1");
+
+								Platform.runLater(new Runnable() {
+									public void run() {
+										Alert alert = new Alert(AlertType.INFORMATION);
+										alert.setTitle("P1 Win!!!");
+										alert.setHeaderText(null);
+										alert.setContentText("Player 1 Win!!!");
+										alert.showAndWait();
+									}
+								});
+							}
 						}
-						else {if (gm.getP1unit() == 0) {
-							// System.out.println("rip p1");
+						for (int i = RenderableHolder.getInstance().getEntities().size() - 1; i >= 0; i--) {
+							IRenderable ir = RenderableHolder.getInstance().getEntities().get(i);
+							if (ir instanceof Unit)
+								((Unit) ir).setDestroy(true);
+						}
 
-							Platform.runLater(new Runnable() {
-								public void run() {
-									Alert alert = new Alert(AlertType.INFORMATION);
-									alert.setTitle("P2 Win!!!");
-									alert.setHeaderText(null);
-									alert.setContentText("Player 2 Win!!!");
-									alert.showAndWait();
-								}
-							});
-						}else if(gm.getP2unit()==0)
-
-	{
-							// System.out.println("rip p1");
-
-							Platform.runLater(new Runnable() {
-								public void run() {
-									Alert alert = new Alert(AlertType.INFORMATION);
-									alert.setTitle("P1 Win!!!");
-									alert.setHeaderText(null);
-									alert.setContentText("Player 1 Win!!!");
-									alert.showAndWait();
-								}
-							});
-						}}for(
-	int i = RenderableHolder.getInstance().getEntities().size() - 1;i>=0;i--)
-	{
-		IRenderable ir = RenderableHolder.getInstance().getEntities().get(i);
-		if (ir instanceof Unit)
-			((Unit) ir).setDestroy(true);
-	}
-
-	getGm().removeDestroyEntity();
+						getGm().removeDestroyEntity();
 						Main.instance.toggleScene();
 					}
-	// gm.checkwin();
+					// gm.checkwin();
 
-	start=now;
+					start = now;
 
-	}}}.start();
+				}
+			}
+		}.start();
 
 	}
 
 	public void paintComponents() {
 		// Fill in here
-		
-		
-		gc.drawImage(javafx_logo,0,0,1080,720);
-		//gc.setFill(Color.LIGHTGRAY);
-		//gc.fillRect(0, 0, zonewidth, zoneheight);
+
+		gc.drawImage(javafx_logo, 0, 0, 1080, 720);
+		// gc.setFill(Color.LIGHTGRAY);
+		// gc.fillRect(0, 0, zonewidth, zoneheight);
 
 		if (state == 8 || state == 9) {
 			gc.setLineWidth(2.0);
@@ -178,15 +182,16 @@ public class GameZone extends Canvas {
 	}
 
 	public void gogo(GameManager gm) {
-		
-		 //System.out.println("state : " + state);// System.out.println("sp : " +
-		 //sp); System.out.println("turn : " + getGm().getturn());
-		//System.out.println("s "+s+" s "+t+" a "+a+" ap "+ap);
-		System.out.println("p1money : "+gm.getP1Money()/2);
-		System.out.println("p2money : "+gm.getP2Money()/2);
+
+		// System.out.println("state : " + state);// System.out.println("sp : "
+		// +
+		// sp); System.out.println("turn : " + getGm().getturn());
+		// System.out.println("s "+s+" s "+t+" a "+a+" ap "+ap);
+		System.out.println("p1money : " + gm.getP1Money() / 2);
+		System.out.println("p2money : " + gm.getP2Money() / 2);
 		if (state == 10) {
-			
-			gc.drawImage(loading,0,0,1080,720);
+
+			gc.drawImage(loading, 0, 0, 1080, 720);
 		} else {
 			if (state == 9) {
 				paintComponents();
@@ -197,21 +202,19 @@ public class GameZone extends Canvas {
 					paintComponents();
 					prePlacingUnit();
 					place();
-					
+
 				} else {
 					if (state == 7) {
-						
+
 						paintComponents();
 						prePlacingUnit();
 						selectPlacing(s, t, a, ap);
-					}
-					else {
+					} else {
 						if (state == 6) {
-						paintComponents();
-						prePlacingUnit();
-						place();
-						}
-						else{
+							paintComponents();
+							prePlacingUnit();
+							place();
+						} else {
 							this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 								public void handle(MouseEvent event) {
 									for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
@@ -230,19 +233,17 @@ public class GameZone extends Canvas {
 								atkgrid(gm, unit);
 							else if (state == 3 && gm.atkcount != 0) {
 								atkselect(gm, unit);
-							} else
-								if(state!=-1)state = 0;
+							} else if (state != -1)
+								state = 0;
 						}
-						
+
 					}
 				}
 			}
 		}
-		
-		//System.out.println("fewfewfwefewfwefewfwewfewfwefwefwefewfewfwe");
-	}
 
-	
+		// System.out.println("fewfewfwefewfwefewfwewfewfwefwefwefewfewfwe");
+	}
 
 	public void movegrid(GameManager gm, Unit u, MouseEvent event) {
 
@@ -369,7 +370,7 @@ public class GameZone extends Canvas {
 									break;
 								}
 							}
-							//System.out.println("55");
+							// System.out.println("55");
 						});
 						t.start();
 						// System.out.println(((int) (event.getSceneX()) / 60) *
@@ -508,7 +509,7 @@ public class GameZone extends Canvas {
 							}
 						}
 					} else {
-						desc.setText("Player1 money:"+gm.getP1Money()+"\n\nPlayer2 money:"+gm.getP2Money());
+						desc.setText("Player1 money:" + gm.getP1Money() + "\n\nPlayer2 money:" + gm.getP2Money());
 					}
 				}
 			}
@@ -747,26 +748,34 @@ public class GameZone extends Canvas {
 						// System.out.println("go get s");
 						sp = "s";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					if (t != 0 && ((int) event.getSceneX()) / 60 == 9 && ((int) event.getSceneY()) / 60 == 5) {
 						sp = "t";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					if (a != 0 && ((int) event.getSceneX()) / 60 == 9 && ((int) event.getSceneY()) / 60 == 7) {
 						sp = "a";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					if (ap != 0 && ((int) event.getSceneX()) / 60 == 9 && ((int) event.getSceneY()) / 60 == 9) {
 						sp = "ap";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					// paintComponents();
 
@@ -775,26 +784,34 @@ public class GameZone extends Canvas {
 					if (s != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 3) {
 						sp = "s";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					if (t != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 5) {
 						sp = "t";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					if (a != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 7) {
 						sp = "a";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 					if (ap != 0 && ((int) event.getSceneX()) / 60 == 4 && ((int) event.getSceneY()) / 60 == 9) {
 						sp = "ap";
 						// place();
-						if(state == 7)state=6 ;
-						else state = 8;
+						if (state == 7)
+							state = 6;
+						else
+							state = 8;
 					}
 				}
 			}
@@ -824,15 +841,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									s--;
 									sp = "";
-									if(state == 6){
-										getGm().setP1Money(getGm().getP1Money()-50);
+									if (state == 6) {
+										getGm().setP1Money(getGm().getP1Money() - 50);
 										state = 7;
-										s=getGm().getP1Money()/50 ;
-										t=getGm().getP1Money()/50 ;
-										a=getGm().getP1Money()/50 ;
-										ap=getGm().getP1Money()/50 ;
-									}
-									else state = 9;
+										s = getGm().getP1Money() / 50;
+										t = getGm().getP1Money() / 50;
+										a = getGm().getP1Money() / 50;
+										ap = getGm().getP1Money() / 50;
+									} else
+										state = 9;
 								}
 								if (sp.equals("t")) {
 									getGm().createTank((((int) event.getSceneX()) / 60),
@@ -841,15 +858,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									t--;
 									sp = "";
-									if(state == 6){
-										getGm().setP1Money(getGm().getP1Money()-50);
+									if (state == 6) {
+										getGm().setP1Money(getGm().getP1Money() - 50);
 										state = 7;
-										s=getGm().getP1Money()/50 ;
-										t=getGm().getP1Money()/50 ;
-										a=getGm().getP1Money()/50 ;
-										ap=getGm().getP1Money()/50 ;
-									}
-									else state = 9;
+										s = getGm().getP1Money() / 50;
+										t = getGm().getP1Money() / 50;
+										a = getGm().getP1Money() / 50;
+										ap = getGm().getP1Money() / 50;
+									} else
+										state = 9;
 								}
 								if (sp.equals("a")) {
 									getGm().createArtillery((((int) event.getSceneX()) / 60),
@@ -858,15 +875,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									a--;
 									sp = "";
-									if(state == 6){
-										getGm().setP1Money(getGm().getP1Money()-50);
+									if (state == 6) {
+										getGm().setP1Money(getGm().getP1Money() - 50);
 										state = 7;
-										s=getGm().getP1Money()/50 ;
-										t=getGm().getP1Money()/50 ;
-										a=getGm().getP1Money()/50 ;
-										ap=getGm().getP1Money()/50 ;
-									}
-									else state = 9;
+										s = getGm().getP1Money() / 50;
+										t = getGm().getP1Money() / 50;
+										a = getGm().getP1Money() / 50;
+										ap = getGm().getP1Money() / 50;
+									} else
+										state = 9;
 								}
 								if (sp.equals("ap")) {
 									getGm().createAPC((((int) event.getSceneX()) / 60),
@@ -875,15 +892,15 @@ public class GameZone extends Canvas {
 											/ 60] = 1;
 									ap--;
 									sp = "";
-									if(state == 6){
-										getGm().setP1Money(getGm().getP1Money()-50);
+									if (state == 6) {
+										getGm().setP1Money(getGm().getP1Money() - 50);
 										state = 7;
-										s=getGm().getP1Money()/50 ;
-										t=getGm().getP1Money()/50 ;
-										a=getGm().getP1Money()/50 ;
-										ap=getGm().getP1Money()/50 ;
-									}
-									else state = 9;
+										s = getGm().getP1Money() / 50;
+										t = getGm().getP1Money() / 50;
+										a = getGm().getP1Money() / 50;
+										ap = getGm().getP1Money() / 50;
+									} else
+										state = 9;
 								}
 							}
 						} else {
@@ -898,15 +915,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										s--;
 										sp = "";
-										if(state == 6){
-											getGm().setP2Money(getGm().getP2Money()-50);
+										if (state == 6) {
+											getGm().setP2Money(getGm().getP2Money() - 50);
 											state = 7;
-											s=getGm().getP2Money()/50 ;
-											t=getGm().getP2Money()/50 ;
-											a=getGm().getP2Money()/50 ;
-											ap=getGm().getP2Money()/50 ;
-										}
-										else state = 9;
+											s = getGm().getP2Money() / 50;
+											t = getGm().getP2Money() / 50;
+											a = getGm().getP2Money() / 50;
+											ap = getGm().getP2Money() / 50;
+										} else
+											state = 9;
 									}
 									if (sp.equals("t")) {
 										getGm().createTank((((int) event.getSceneX()) / 60),
@@ -915,15 +932,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										t--;
 										sp = "";
-										if(state == 6){
-											getGm().setP2Money(getGm().getP2Money()-50);
+										if (state == 6) {
+											getGm().setP2Money(getGm().getP2Money() - 50);
 											state = 7;
-											s=getGm().getP2Money()/50 ;
-											t=getGm().getP2Money()/50 ;
-											a=getGm().getP2Money()/50 ;
-											ap=getGm().getP2Money()/50 ;
-										}
-										else state = 9;
+											s = getGm().getP2Money() / 50;
+											t = getGm().getP2Money() / 50;
+											a = getGm().getP2Money() / 50;
+											ap = getGm().getP2Money() / 50;
+										} else
+											state = 9;
 									}
 									if (sp.equals("a")) {
 										getGm().createArtillery((((int) event.getSceneX()) / 60),
@@ -932,15 +949,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										a--;
 										sp = "";
-										if(state == 6){
-											getGm().setP2Money(getGm().getP2Money()-50);
+										if (state == 6) {
+											getGm().setP2Money(getGm().getP2Money() - 50);
 											state = 7;
-											s=getGm().getP2Money()/50 ;
-											t=getGm().getP2Money()/50 ;
-											a=getGm().getP2Money()/50 ;
-											ap=getGm().getP2Money()/50 ;
-										}
-										else state = 9;
+											s = getGm().getP2Money() / 50;
+											t = getGm().getP2Money() / 50;
+											a = getGm().getP2Money() / 50;
+											ap = getGm().getP2Money() / 50;
+										} else
+											state = 9;
 									}
 									if (sp.equals("ap")) {
 										getGm().createAPC((((int) event.getSceneX()) / 60),
@@ -949,15 +966,15 @@ public class GameZone extends Canvas {
 												/ 60] = 2;
 										ap--;
 										sp = "";
-										if(state == 6){
-											getGm().setP2Money(getGm().getP2Money()-50);
+										if (state == 6) {
+											getGm().setP2Money(getGm().getP2Money() - 50);
 											state = 7;
-											s=getGm().getP2Money()/50 ;
-											t=getGm().getP2Money()/50 ;
-											a=getGm().getP2Money()/50 ;
-											ap=getGm().getP2Money()/50 ;
-										}
-										else state = 9;
+											s = getGm().getP2Money() / 50;
+											t = getGm().getP2Money() / 50;
+											a = getGm().getP2Money() / 50;
+											ap = getGm().getP2Money() / 50;
+										} else
+											state = 9;
 									}
 								}
 							}
@@ -966,7 +983,8 @@ public class GameZone extends Canvas {
 				} else {
 					sp = "";
 					state = 9;
-					if(state == 6)state = 6;
+					if (state == 6)
+						state = 6;
 				}
 			}
 		});
@@ -1023,24 +1041,16 @@ public class GameZone extends Canvas {
 		time.setText(timestr);
 	}
 
-	/*public void recruit() {
-		cancelAction();
-
-		if (getGm().getturn() == 1) {
-			s = getGm().getP1Money() / 50;
-			t = getGm().getP1Money() / 50;
-			a = getGm().getP1Money() / 50;
-			ap = getGm().getP1Money() / 50;
-		} else {
-			if (getGm().getturn() == 2) {
-				s = getGm().getP2Money() / 50;
-				t = getGm().getP2Money() / 50;
-				a = getGm().getP2Money() / 50;
-				ap = getGm().getP2Money() / 50;
-			}
-		}
-		state = 9;
-	}*/
+	/*
+	 * public void recruit() { cancelAction();
+	 * 
+	 * if (getGm().getturn() == 1) { s = getGm().getP1Money() / 50; t =
+	 * getGm().getP1Money() / 50; a = getGm().getP1Money() / 50; ap =
+	 * getGm().getP1Money() / 50; } else { if (getGm().getturn() == 2) { s =
+	 * getGm().getP2Money() / 50; t = getGm().getP2Money() / 50; a =
+	 * getGm().getP2Money() / 50; ap = getGm().getP2Money() / 50; } } state = 9;
+	 * }
+	 */
 
 	public Label getDesc() {
 		return desc;

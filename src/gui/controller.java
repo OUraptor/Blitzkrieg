@@ -1,10 +1,10 @@
+// Witsarut Boonmasuvaran 5831066721
+// Possatorn Buakhom 5831043221
+// Blitzkrieg master
 package gui;
-
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,9 +20,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.Main;
 
+public class controller implements Initializable {
 
-public class controller implements Initializable{
-	
 	@FXML
 	private Pane screen;
 	@FXML
@@ -35,19 +34,15 @@ public class controller implements Initializable{
 	private Button Skirmish;
 	@FXML
 	private Button exit;
-	
-	
-	//right screen
+
+	// right screen
 	@FXML
 	private Text time;
-	
-	
-	
+
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 	}
-		
-	
+
 	public void GotoCampaign(ActionEvent event) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information Dialog");
@@ -56,60 +51,59 @@ public class controller implements Initializable{
 
 		alert.showAndWait();
 		System.out.println("goto Campaingn ");
-		
-			
+
 	}
+
 	public void GotoSkirmish(ActionEvent event) {
 		System.out.println("goto Skirmish ");
-		//main.instance.toggleScene(); // if use main in gui
+		// main.instance.toggleScene(); // if use main in gui
 		Main.instance.toggleScene();
-		
+
 	}
+
 	public void GotoExit(ActionEvent event) {
 		System.exit(0);
 		System.out.println("goto Exit ");
-		
+
 	}
-	public void Ckapip (MouseEvent event){
-	
+
+	public void Ckapip(MouseEvent event) {
+
 		Blitzkrieg.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event){
+			public void handle(MouseEvent event) {
 				Blitzkrieg.setFill(Color.WHITE);
 				Blitzkrieg.setStyle("-fx-background-color: white");
-			
-		}		
+
+			}
 		});
 	}
-	public void Ckapip2 (MouseEvent event){
 
-	
+	public void Ckapip2(MouseEvent event) {
+
 		Blitzkrieg.setOnMouseExited(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event){
+			public void handle(MouseEvent event) {
 				Blitzkrieg.setFill(Color.BLACK);
 				Blitzkrieg.setStyle("-fx-background-color: black");
-		}		
+			}
 		});
 	}
-		
-	// right pane part 		
-	//Pane pane = new Pane();
-	/*FXMLLoader loader = new FXMLLoader();
-	loader.setLocation(main.class.getResource("right screen.fxml"));
-	pane = loader.load();*/
-	//ctrcenter.setTop(pane);
-	
-	//this.animationTimer.start();
-	
 
+	// right pane part
+	// Pane pane = new Pane();
+	/*
+	 * FXMLLoader loader = new FXMLLoader();
+	 * loader.setLocation(main.class.getResource("right screen.fxml")); pane =
+	 * loader.load();
+	 */
+	// ctrcenter.setTop(pane);
 
-	
-	/*public void paintComponents() {
-		// Fill in here
-		String image_path = "file:res/field.jpg";
-		Image javafx_logo = new Image(image_path);
-		//gc.drawImage(javafx_logo, 60, 60);
-		gc.setFill(Color.LIGHTGRAY);
-		gc.fillRect(0, 0, zonewidth, zoneheight);
-		gc.drawImage(javafx_logo,0,0,1080,720);
-	*/
+	// this.animationTimer.start();
+
+	/*
+	 * public void paintComponents() { // Fill in here String image_path =
+	 * "file:res/field.jpg"; Image javafx_logo = new Image(image_path);
+	 * //gc.drawImage(javafx_logo, 60, 60); gc.setFill(Color.LIGHTGRAY);
+	 * gc.fillRect(0, 0, zonewidth, zoneheight);
+	 * gc.drawImage(javafx_logo,0,0,1080,720);
+	 */
 }
