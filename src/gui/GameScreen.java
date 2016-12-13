@@ -1,7 +1,7 @@
 package gui;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import logic.Unit;
+import logic.GameManager;
 
 public class GameScreen extends BorderPane {
 
@@ -21,18 +22,29 @@ public class GameScreen extends BorderPane {
 	public static final int gscreenheight = 720;
 	public static final int ctrwidth = 250;
 	private GameZone gz = new GameZone();
-
+	
 	private Label turnButton = new Label("Start Game");
 	private Button shopbutton = new Button("Shop") ;
 
 	public GameScreen() {
 		this.setPrefSize(gscreenwidth, gscreenheight);
+		/*FlowPane Money = new FlowPane();
+		Label getp1M = new Label();
+		Label getp2M = new Label();
+		getp1M.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
+		getp2M.setFont(Font.font("Tahoma", FontWeight.BOLD, FontPosture.ITALIC, 20));
+		getp1M.setTextFill(Color.LIGHTBLUE);
+		getp2M.setTextFill(Color.LIGHTBLUE);
+		getp1M.setText("Player1 money:"+gz.getGm().getP1Money());
+		getp2M.setText("Player2 money:"+gz.getGm().getP2Money());
+		Money.getChildren().add(getp1M);
+		Money.getChildren().add(getp2M);*/
+		
 		FlowPane Ctr = new FlowPane();
 		BorderPane ctrcenter = new BorderPane();
-		FlowPane info = new FlowPane();
 		FlowPane act = new FlowPane();
 		GridPane gp = new GridPane();
-
+		
 		ctrcenter.setPrefWidth(250);
 		ctrcenter.setStyle("-fx-background-color: black");
 
@@ -125,19 +137,11 @@ public class GameScreen extends BorderPane {
 						}
 						else {
 							if(gz.getGm().getturn()==2){
-								turnButton.setText("P1 Turn End");
 								
-								
-								gz.getGm().setturn(1);
+								turnButton.setText("P1 Go!");
 								gz.setState(0);
-								for (IRenderable ir : RenderableHolder.getInstance().getEntities()) {
-									if (ir instanceof Unit) {
-										if (((Unit) ir).getPlayer() == 1)
-											((Unit) ir).setmovable(true);
-									}
-								}
 								gz.paintComponents();
-								gz.countdown();
+								gz.setState(-1);
 							}
 						}
 					} else {
@@ -185,6 +189,7 @@ public class GameScreen extends BorderPane {
 		Ctr.getChildren().add(gz.getTime());
 		this.setCenter(gz);
 		this.setRight(ctrcenter);
+		
 		ctrcenter.setCenter(gp);
 		ctrcenter.setBottom(act);
 		ctrcenter.setTop(Ctr);

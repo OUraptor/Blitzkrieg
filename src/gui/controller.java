@@ -4,9 +4,7 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import gui.GameScreen;
-import gui.HomeScreen;
-import javafx.animation.AnimationTimer;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;

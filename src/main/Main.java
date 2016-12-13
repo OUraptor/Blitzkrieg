@@ -1,6 +1,7 @@
 package main;
 
 import javafx.stage.Stage;
+import gui.controller;
 import javafx.stage.WindowEvent;
 import gui.GameScreen;
 import gui.HomeScreen;
@@ -22,8 +23,10 @@ public class Main extends Application{
 	private Scene Play; 
 	private GameScreen gameScreen;
 	//private HomeScreen homeScreen;
-	AudioClip sound = new AudioClip("file:res/main-theme2.mp3");
+	//AudioClip sound = new AudioClip("file:res/main-theme2.mp3");
+	AudioClip sound = new AudioClip(ClassLoader.getSystemResource("main-theme2.mp3").toString());
 	
+
 	
 	
 	
@@ -37,7 +40,7 @@ public class Main extends Application{
 		try {
 			this.primaryStage = primaryStage;
 			instance = this;
-			this.primaryStage.setTitle("Proj Prog");
+			this.primaryStage.setTitle("Blitzkrieg");
 			this.primaryStage.setResizable(false);
 			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				

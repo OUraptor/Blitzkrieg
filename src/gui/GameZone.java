@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -50,15 +51,16 @@ public class GameZone extends Canvas {
 	private int ap = 2;
 
 	private String image_path3 = "file:res/build.jpg";
-	protected Image build = new Image(image_path3);
-
+	//protected Image build = new Image(image_path3); 
+	protected Image build = new Image(ClassLoader.getSystemResource("build.jpg").toString());
+	
 	private String image_path2 = "file:res/loading.jpg";
-	protected Image loading = new Image(image_path2);
+	protected Image loading = new Image(ClassLoader.getSystemResource("loading.jpg").toString());
 
 	private Unit unit;
 
 	private String image_path = "file:res/field.jpg";
-	protected Image javafx_logo = new Image(image_path);
+	protected Image javafx_logo = new Image(ClassLoader.getSystemResource("field.jpg").toString());
 
 	private GameManager gm;
 

@@ -14,9 +14,6 @@
 <Pane fx:id="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.5" prefWidth="812.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller">
    <children>
       <ImageView fx:id="Wall" blendMode="SRC_ATOP" depthTest="ENABLE" fitHeight="512.5" fitWidth="812.5" focusTraversable="true" style="-fx-image: 555;">
-         <image>
-            <Image url="@../../res/thumb-1920-410344.jpg" />
-         </image>
          <effect>
             <Lighting>
                <bumpInput>
@@ -30,6 +27,9 @@
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
+         <image>
+            <Image url="@thumb-1920-410344.jpg" />
+         </image>
       </ImageView>
       <Button fx:id="Campaign" blendMode="SOFT_LIGHT" layoutX="42.0" layoutY="94.0" mnemonicParsing="false" onAction="#GotoCampaign" prefHeight="74.0" prefWidth="203.0" text="Campaign">
          <font>
