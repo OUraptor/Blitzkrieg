@@ -20,7 +20,7 @@ public class Main extends Application{
 	private Scene HOME;
 	private Scene Play; 
 	private GameScreen gameScreen;
-	//private Pane screen;
+	
 	AudioClip sound = new AudioClip("file:res/main-theme2.mp3");
 	
 	
@@ -45,14 +45,7 @@ public class Main extends Application{
 					System.exit(0);
 				}
 			});
-			/*Parent root = FXMLLoader.load(getClass()
-					.getResource("screen.fxml"));
-			
-			this.pane = new Pane();
-			this.HOME =new Scene(pane);
-			this.Play =new Scene(gameScreen);
-			this.primaryStage.setScene(HOME); // Place the scene*/
-			
+		
 			this.gameScreen = new GameScreen() ;
 			this.Play =new Scene(gameScreen);
 			playsound(sound);
@@ -90,7 +83,7 @@ public class Main extends Application{
 	public void playsound(AudioClip sound){
 		this.sound = sound;
 		sound.setCycleCount(AudioClip.INDEFINITE);
-		sound.play();
+		sound.play();  
 	}
 	
 }
