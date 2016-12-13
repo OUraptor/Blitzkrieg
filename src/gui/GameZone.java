@@ -328,7 +328,7 @@ public class GameZone extends Canvas {
 									System.out.println("Stop Timer Thread");
 									break;
 								}
-							}
+							}System.out.println("55");
 						});
 						t.start();
 						//System.out.println(((int) (event.getSceneX()) / 60) * 60+" "+((int) (event.getSceneY()) / 60) * 60);
@@ -519,14 +519,16 @@ public class GameZone extends Canvas {
 		if (gm.getturn() == 1) {
 			String image_path = "file:res/build.jpg";
 			Image javafx_logo = new Image(image_path);
-			gc.setFill(Color.LIGHTGRAY);
+			//gc.setFill(Color.LIGHTGRAY);
+			//gc.fillRect(300, 0, zonewidth-300, zoneheight);
 			gc.drawImage(javafx_logo,300,0,zonewidth - 300, zoneheight);
 			
 			iconPlacing();
 		} else if (gm.getturn() == 2) {
 			String image_path = "file:res/build.jpg";
 			Image javafx_logo = new Image(image_path);
-			gc.setFill(Color.LIGHTGRAY);
+			//gc.setFill(Color.LIGHTGRAY);
+			//gc.fillRect(0, 0, zonewidth-300, zoneheight);
 			gc.drawImage(javafx_logo,0,0,zonewidth - 300, zoneheight);
 			
 		}

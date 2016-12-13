@@ -103,25 +103,9 @@ public class controller implements Initializable{
 	
 	//this.animationTimer.start();
 	
-	Thread timer = new Thread(() -> {
-		try{
-			while(true){
-				Thread.sleep(1000);
-				timerdown();
-			}
-		}catch(InterruptedException e){
-			
-		}
-	});
 
 
-	public void timerdown() {
-		// TODO Auto-generated method stub
-		int result = Integer.parseInt(time.toString());
-		result--;
-		String str = result+"";
-		time.setText(str);
-	}
+	
 	/*public void paintComponents() {
 		// Fill in here
 		String image_path = "file:res/field.jpg";

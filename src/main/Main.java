@@ -3,6 +3,7 @@ package main;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import gui.GameScreen;
+import gui.HomeScreen;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,7 @@ public class Main extends Application{
 	private Scene HOME;
 	private Scene Play; 
 	private GameScreen gameScreen;
-	
+	//private HomeScreen homeScreen;
 	AudioClip sound = new AudioClip("file:res/main-theme2.mp3");
 	
 	
@@ -45,9 +46,16 @@ public class Main extends Application{
 					System.exit(0);
 				}
 			});
-		
-			this.gameScreen = new GameScreen() ;
+			
+			/*this.gameScreen = new GameScreen() ;
 			this.Play =new Scene(gameScreen);
+			this.homeScreen = new HomeScreen() ;
+			this.HOME = new Scene(homeScreen) ;
+			/*this.gameScreen = new GameScreen() ;
+			this.gameScene = new Scene(gameScreen) ;*/
+			
+			this.primaryStage.setScene(this.HOME);
+			this.primaryStage.show();
 			playsound(sound);
 			ShowScreen();
 			
@@ -82,8 +90,8 @@ public class Main extends Application{
 		}
 	}
 	public void playsound(AudioClip sound){
-		this.sound = sound;
-		sound.setCycleCount(AudioClip.INDEFINITE);
+		//this.sound = sound;
+		//sound.setCycleCount(AudioClip.INDEFINITE);
 		sound.play();  
 	}
 	
